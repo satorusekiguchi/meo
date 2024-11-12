@@ -44,16 +44,6 @@ export default function Home() {
   const [isCompleted, setIsCompleted] = useState(false)
   const [generatedReview, setGeneratedReview] = useState('')
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Enter' && answers[currentQuestion] !== '') {
-        handleNext()
-      }
-    }
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [currentQuestion, answers])
-
   const handleAnswer = (answer: string) => {
     const newAnswers = [...answers]
     newAnswers[currentQuestion] = answer
@@ -108,56 +98,67 @@ export default function Home() {
   const currentQuestionData = questions[currentQuestion]
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <Card className="w-full max-w-[800px] mx-4 my-8">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
+      <Card className="w-full max-w-[800px]">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">エンゲージメントアンケート</CardTitle>
         </CardHeader>
         <CardContent>
           {error ? (
-            <div className="text-center my-8">
+            <div className="text-center py-4">
               <div className="text-red-500 mb-4">{error}</div>
-              <Button onClick={() => setError(null)}>もう一度試す</Button>
+              <Button 
+                onClick={() => setError(null)}
+                variant="outline"
+                className="hover:bg-primary hover:text-primary-foreground"
+              >
+                もう一度試す
+              </Button>
             </div>
           ) : isSubmitting ? (
-            <div className="text-center my-8">
+            <div className="text-center py-8">
               <div className="animate-pulse text-lg">送信中...</div>
             </div>
           ) : (
             <>
-              <div className="mb-6 bg-gray-200 h-2 rounded-full">
-                <div 
-                  className="bg-primary h-2 rounded-full transition-all duration-300 ease-in-out" 
-                  style={{width: `${((currentQuestion + 1) / questions.length) * 100}%`}}
-                />
-              </div>
-              <h2 className="text-xl mb-6">{currentQuestionData.question}</h2>
-              <RadioGroup 
-                onValueChange={handleAnswer} 
-                value={answers[currentQuestion]}
-                className="space-y-3"
-              >
-                {currentQuestionData.options.map((option, index) => (
+              <div className="mb-6">
+                <div className="bg-gray-200 h-2 rounded-full mb-6">
                   <div 
-                    key={index} 
-                    className="flex items-center space-x-2 p-3 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
-                    onClick={() => handleAnswer(option)}
-                  >
-                    <RadioGroupItem value={option} id={`option-${index}`} />
-                    <Label htmlFor={`option-${index}`} className="flex-grow cursor-pointer">
-                      {option}
-                    </Label>
-                  </div>
-                ))}
-              </RadioGroup>
+                    className="bg-primary h-2 rounded-full transition-all duration-300 ease-in-out" 
+                    style={{width: `${((currentQuestion + 1) / questions.length) * 100}%`}}
+                  />
+                </div>
+                <h2 className="text-xl mb-6">{currentQuestionData.question}</h2>
+                <RadioGroup 
+                  onValueChange={handleAnswer} 
+                  value={answers[currentQuestion]}
+                  className="space-y-3"
+                >
+                  {currentQuestionData.options.map((option, index) => (
+                    <div 
+                      key={index} 
+                      className="flex items-center space-x-2 p-3 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+                      onClick={() => handleAnswer(option)}
+                    >
+                      <RadioGroupItem value={option} id={`option-${index}`} />
+                      <Label 
+                        htmlFor={`option-${index}`} 
+                        className="flex-grow cursor-pointer"
+                      >
+                        {option}
+                      </Label>
+                    </div>
+                  ))}
+                </RadioGroup>
+              </div>
             </>
           )}
         </CardContent>
         <CardFooter className="flex justify-between items-center">
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-muted-foreground">
             質問 {currentQuestion + 1} / {questions.length}
           </div>
-          <Button 
+          <Button
             onClick={handleNext}
             disabled={answers[currentQuestion] === '' || isSubmitting}
             className="transition-all duration-300 ease-in-out transform hover:scale-105"
