@@ -22,20 +22,23 @@ OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
 
 Object.entries(variables).forEach(([key, value]) => {
 if (!value) {
+console.error(`環境変数 ${key} が設定されていません。`);
 throw new Error(`環境変数 ${key} が設定されていません。`);
 }
+console.log(`${key} is present with length: ${value.length}`);
 });
 
 return variables;
 }
 
-const env = validateEnvironmentVariables();
-
+let env: EnvironmentVariables;
+try {
+env = validateEnvironmentVariables();
 console.log('環境変数の検証が完了しました。');
-console.log('GOOGLE_SERVICE_ACCOUNT_EMAIL:', env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
-console.log('GOOGLE_SHEET_ID:', env.GOOGLE_SHEET_ID);
-console.log('OPENAI_API_KEY:', env.OPENAI_API_KEY ? '設定済み' : '未設定');
-console.log('GOOGLE_PRIVATE_KEY の長さ:', env.GOOGLE_PRIVATE_KEY.length);
+} catch (error) {
+console.error('環境変数の検証に失敗しました:', error);
+throw error;
+}
 
 const openai = new OpenAI({
 apiKey: env.OPENAI_API_KEY,
