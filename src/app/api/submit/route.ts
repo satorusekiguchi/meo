@@ -3,64 +3,43 @@ import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { JWT } from 'google-auth-library';
 import OpenAI from 'openai';
 
-// 環境変数の型定義
-type EnvironmentVariables = {
+interface EnvironmentVariables {
 GOOGLE_PRIVATE_KEY: string;
 GOOGLE_SERVICE_ACCOUNT_EMAIL: string;
 GOOGLE_SHEET_ID: string;
 OPENAI_API_KEY: string;
-};
+}
 
-// 環境変数の検証
 function validateEnvironmentVariables(): EnvironmentVariables {
 const variables: EnvironmentVariables = {
-GOOGLE_PRIVATE_KEY: process.env.GOOGLE_PRIVATE_KEY || '',
-GOOGLE_SERVICE_ACCOUNT_EMAIL: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || '',
-GOOGLE_SHEET_ID: process.env.GOOGLE_SHEET_ID || '',
-OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
+GOOGLE_PRIVATE_KEY: process.env.GOOGLE_PRIVATE_KEY?.trim() || '',
+GOOGLE_SERVICE_ACCOUNT_EMAIL: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL?.trim() || '',
+GOOGLE_SHEET_ID: process.env.GOOGLE_SHEET_ID?.trim() || '',
+OPENAI_API_KEY: process.env.OPENAI_API_KEY?.trim() || '',
 };
-
-Object.entries(variables).forEach(([key, value]) => {
-if (!value) {
-console.error(`環境変数 ${key} が設定されていません。`);
-throw new Error(`環境変数 ${key} が設定されていません。`);
-}
-console.log(`${key} is present with length: ${value.length}`);
-});
-
+// ... 残りのコードは変更なし
 return variables;
 }
 
-let env: EnvironmentVariables;
-try {
-env = validateEnvironmentVariables();
-console.log('環境変数の検証が完了しました。');
-} catch (error) {
-console.error('環境変数の検証に失敗しました:', error);
-throw error;
-}
-
-const openai = new OpenAI({
-apiKey: env.OPENAI_API_KEY,
-});
 
 export async function POST(req: Request) {
-console.log('POST リクエストを受信しました。');
+console.log('API route started');
 try {
 const { answers } = await req.json();
-console.log('受信した回答:', answers);
+console.log('Received answers:', answers);
 
 if (!answers || !Array.isArray(answers) || answers.length !== 5) {
-console.error('無効な回答フォーマット');
+console.error('Invalid answers format');
 return NextResponse.json({ success: false, error: '無効な回答フォーマット' }, { status: 400 });
 }
 
 const review = await generateReview(answers);
 await saveToGoogleSheet(answers, review);
 
+console.log('Review generated and saved successfully');
 return NextResponse.json({ success: true, review });
 } catch (error) {
-console.error('リクエスト処理中にエラーが発生しました:', error);
+console.error('Error in API route:', error);
 return NextResponse.json({
 success: false,
 error: '内部サーバーエラー',
@@ -70,68 +49,52 @@ details: error instanceof Error ? error.message : '不明なエラー',
 }
 
 async function generateReview(answers: string[]): Promise<string> {
-console.log('レビューを生成中...');
-try {
-const prompt = `以下のエンゲージメントアンケート結果から、自然な口コミを生成してください：\n\n${answers.join('\n')}`;
+console.log('Generating review...');
+const openai = new OpenAI({
+apiKey: process.env.OPENAI_API_KEY,
+});
 
+try {
 const response = await openai.chat.completions.create({
 model: 'gpt-3.5-turbo',
 messages: [
 { role: 'system', content: 'あなたは顧客の声を自然な口コミに変換する専門家です。' },
-{ role: 'user', content: prompt },
+{ role: 'user', content: `以下のエンゲージメントアンケート結果から、自然な口コミを生成してください：\n\n${answers.join('\n')}` },
 ],
 max_tokens: 200,
 temperature: 0.7,
 });
 
-console.log('レビューが正常に生成されました。');
+console.log('Review generated successfully');
 return response.choices[0].message?.content?.trim() || '';
 } catch (error) {
-console.error('レビュー生成中にエラーが発生しました:', error);
-throw new Error('レビューの生成に失敗しました: ' + (error instanceof Error ? error.message : '不明なエラー'));
+console.error('OpenAI APIでのレビュー生成中にエラーが発生しました:', error);
+throw new Error('OpenAI APIを使用したレビューの生成に失敗しました: ' + (error instanceof Error ? error.message : '不明なエラー'));
 }
 }
 
 async function saveToGoogleSheet(answers: string[], review: string): Promise<void> {
-console.log('Google シートに保存中...');
+console.log('Saving to Google Sheet...');
 try {
-const privateKey = env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n');
-console.log('秘密鍵の長さ:', privateKey.length);
-
+const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
 const jwt = new JWT({
-email: env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
 key: privateKey,
 scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 });
 
-console.log('JWT が正常に作成されました。');
-
-const doc = new GoogleSpreadsheet(env.GOOGLE_SHEET_ID, jwt);
-console.log('GoogleSpreadsheet インスタンスが作成されました。');
-
+const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID, jwt);
 await doc.loadInfo();
 console.log('スプレッドシート情報が読み込まれました。');
 
-const sheet = doc.sheetsByIndex[0];
+let sheet = doc.sheetsByIndex[0];
+if (!sheet) {
+console.log('シートが見つかりません。新しいシートを作成します。');
+sheet = await doc.addSheet({ title: 'アンケート回答' });
+}
 console.log('シートにアクセスしました。');
 
-// ヘッダー行の設定
-const headers = [
-'日時',
-'満足度',
-'スタッフの対応',
-'清潔さ',
-'総合評価',
-'再利用意向',
-'生成されたレビュー',
-];
-
-// ヘッダー行を無条件に設定
-await sheet.setHeaderRow(headers);
-console.log('ヘッダー行を設定しました。');
-
-// データの作成
-const newRowData = {
+const newRow = {
 '日時': new Date().toLocaleString('ja-JP'),
 '満足度': answers[0],
 'スタッフの対応': answers[1],
@@ -141,18 +104,10 @@ const newRowData = {
 '生成されたレビュー': review,
 };
 
-// 行を追加
-await sheet.addRow(newRowData);
-console.log('行が正常に追加されました。');
-
-console.log('Google シートへの保存が完了しました。');
+await sheet.addRow(newRow);
+console.log('Data saved to Google Sheet successfully');
 } catch (error) {
-console.error('Google シートへの保存中にエラーが発生しました:', error);
-if (error instanceof Error && 'response' in error) {
-console.error('エラーレスポンス:', JSON.stringify((error as { response?: { data: unknown } }).response?.data, null, 2));
-} else {
-console.error('エラーの詳細:', error);
-}
-throw new Error('Google シートへの保存に失敗しました: ' + (error instanceof Error ? error.message : '不明なエラー'));
+console.error('Error saving to Google Sheet:', error);
+throw new Error('Google シートへの保存に失敗しました');
 }
 }
