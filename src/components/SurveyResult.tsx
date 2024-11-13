@@ -1,114 +1,174 @@
-'use client'
+import { NextResponse } from 'next/server';
+import { GoogleSpreadsheet } from 'google-spreadsheet';
+import OpenAI from 'openai';
 
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { ArrowLeft, Copy, ExternalLink } from 'lucide-react'
-import Link from 'next/link'
+// 環境変数の型定義
+type EnvironmentVariables = {
+GOOGLE_PRIVATE_KEY: string;
+GOOGLE_SERVICE_ACCOUNT_EMAIL: string;
+GOOGLE_SHEET_ID: string;
+OPENAI_API_KEY: string;
+};
 
-interface SurveyResultProps {
-generatedReview: string;
+// 環境変数の検証
+function validateEnvironmentVariables(): EnvironmentVariables {
+const variables: EnvironmentVariables = {
+GOOGLE_PRIVATE_KEY: process.env.GOOGLE_PRIVATE_KEY || '',
+GOOGLE_SERVICE_ACCOUNT_EMAIL: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || '',
+GOOGLE_SHEET_ID: process.env.GOOGLE_SHEET_ID || '',
+OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
+};
+
+Object.entries(variables).forEach(([key, value]) => {
+if (!value) {
+console.error(`環境変数 ${key} が設定されていません。`);
+throw new Error(`環境変数 ${key} が設定されていません。`);
+}
+console.log(`${key} is present with length: ${value.length}`);
+});
+
+return variables;
 }
 
-export default function SurveyResult({ generatedReview }: SurveyResultProps) {
-const [isCopied, setIsCopied] = useState(false);
-
-const showToast = (message: string) => {
-alert(message);
-};
-
-const reviewUrls = {
-google: 'https://g.page/r/YOUR_GOOGLE_REVIEW_ID/review',
-tabelog: 'https://tabelog.com/YOUR_RESTAURANT_ID/review/',
-gurunavi: 'https://www.gnavi.co.jp/YOUR_RESTAURANT_ID/review/',
-hotpepper: 'https://beauty.hotpepper.jp/CSP/bt/reserve/review/BCSTOP/YOUR_SALON_ID/'
-};
-
-const socialUrls = {
-instagram: 'https://www.instagram.com/YOUR_INSTAGRAM_HANDLE/',
-line: 'https://line.me/R/ti/p/@YOUR_LINE_ID'
-};
-
-const copyToClipboard = async () => {
+let env: EnvironmentVariables;
 try {
-await navigator.clipboard.writeText(generatedReview);
-setIsCopied(true);
-showToast("レビューがクリップボードにコピーされました。");
-setTimeout(() => setIsCopied(false), 2000);
-} catch (err) {
-console.error('Failed to copy text: ', err);
-showToast("コピーに失敗しました。もう一度お試しください。");
+env = validateEnvironmentVariables();
+console.log('環境変数の検証が完了しました。');
+} catch (error) {
+console.error('環境変数の検証に失敗しました:', error);
+throw error;
 }
+
+const openai = new OpenAI({
+apiKey: env.OPENAI_API_KEY,
+});
+
+export async function POST(req: Request) {
+console.log('POST リクエストを受信しました。');
+try {
+const { answers } = await req.json();
+console.log('受信した回答:', answers);
+
+if (!answers || !Array.isArray(answers) || answers.length !== 5) {
+console.error('無効な回答フォーマット');
+return NextResponse.json(
+{ success: false, error: '無効な回答フォーマット' },
+{ status: 400 }
+);
+}
+
+const review = await generateReview(answers);
+await saveToGoogleSheet(answers, review);
+
+return NextResponse.json({ success: true, review });
+} catch (error) {
+console.error('リクエスト処理中にエラーが発生しました:', error);
+return NextResponse.json(
+{
+success: false,
+error: '内部サーバーエラー',
+details: error instanceof Error ? error.message : '不明なエラー',
+},
+{ status: 500 }
+);
+}
+}
+
+async function generateReview(answers: string[]): Promise<string> {
+console.log('レビューを生成中...');
+try {
+const prompt = `以下のエンゲージメントアンケート結果から、自然な口コミを生成してください：\n\n${answers.join('\n')}`;
+
+const response = await openai.chat.completions.create({
+model: 'gpt-3.5-turbo',
+messages: [
+{ role: 'system', content: 'あなたは顧客の声を自然な口コミに変換する専門家です。' },
+{ role: 'user', content: prompt },
+],
+max_tokens: 200,
+temperature: 0.7,
+});
+
+console.log('レビューが正常に生成されました。');
+return response.choices[0].message?.content?.trim() || '';
+} catch (error) {
+console.error('レビュー生成中にエラーが発生しました:', error);
+throw new Error(
+'レビューの生成に失敗しました: ' +
+(error instanceof Error ? error.message : '不明なエラー')
+);
+}
+}
+
+async function saveToGoogleSheet(answers: string[], review: string): Promise<void> {
+console.log('Google シートに保存中...');
+try {
+const privateKey = env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n');
+console.log('秘密鍵の長さ:', privateKey.length);
+
+const doc = new GoogleSpreadsheet(env.GOOGLE_SHEET_ID);
+console.log('GoogleSpreadsheet インスタンスが作成されました。');
+
+await doc.useServiceAccountAuth({
+client_email: env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+private_key: privateKey,
+});
+console.log('認証が正常に完了しました。');
+
+await doc.loadInfo();
+console.log('スプレッドシート情報が読み込まれました。');
+
+const sheet = doc.sheetsByIndex[0];
+console.log('シートにアクセスしました。');
+
+// ヘッダー行の設定
+const headers = [
+'日時',
+'満足度',
+'スタッフの対応',
+'清潔さ',
+'総合評価',
+'再利用意向',
+'生成されたレビュー',
+];
+
+// ヘッダー行を無条件に設定
+await sheet.setHeaderRow(headers);
+console.log('ヘッダー行を設定しました。');
+
+// データの作成
+const newRowData = {
+'日時': new Date().toLocaleString('ja-JP'),
+'満足度': answers[0],
+'スタッフの対応': answers[1],
+'清潔さ': answers[2],
+'総合評価': answers[3],
+'再利用意向': answers[4],
+'生成されたレビュー': review,
 };
 
-const copyAndRedirect = (url: string) => async () => {
-await copyToClipboard();
-window.open(url, '_blank', 'noopener,noreferrer');
-};
+// 行を追加
+await sheet.addRow(newRowData);
+console.log('行が正常に追加されました。');
 
-return (
-<Card className="w-full max-w-2xl mx-auto mt-8">
-<CardHeader>
-<CardTitle className="text-2xl font-bold text-center">ありがとうございました！</CardTitle>
-</CardHeader>
-<CardContent>
-<p className="mb-4">あなたの回答から生成されたレビューです：</p>
-<p className="text-lg bg-muted p-4 rounded-md mb-4">{generatedReview}</p>
-<div className="space-y-4">
-<Button onClick={copyToClipboard} className="w-full">
-<Copy className="mr-2 h-4 w-4" />
-{isCopied ? 'コピーしました！' : 'レビューをコピー'}
-</Button>
-<div className="grid grid-cols-2 gap-2">
-<Button onClick={copyAndRedirect(reviewUrls.google)} className="w-full">
-<ExternalLink className="mr-2 h-4 w-4" />
-Googleに投稿
-</Button>
-<Button onClick={copyAndRedirect(reviewUrls.tabelog)} className="w-full">
-<ExternalLink className="mr-2 h-4 w-4" />
-食べログに投稿
-</Button>
-<Button onClick={copyAndRedirect(reviewUrls.gurunavi)} className="w-full">
-<ExternalLink className="mr-2 h-4 w-4" />
-ぐるなびに投稿
-</Button>
-<Button onClick={copyAndRedirect(reviewUrls.hotpepper)} className="w-full">
-<ExternalLink className="mr-2 h-4 w-4" />
-ホットペッパーに投稿
-</Button>
-</div>
-</div>
-<div className="mt-6">
-<p className="text-center font-semibold mb-2">Follow Me!</p>
-<div className="flex justify-center space-x-4">
-<Link href={socialUrls.instagram} target="_blank" rel="noopener noreferrer">
-<Button 
-className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
->
-Instagram
-</Button>
-</Link>
-<Link href={socialUrls.line} target="_blank" rel="noopener noreferrer">
-<Button 
-className="bg-[#00B900] hover:bg-[#00A000] text-white"
->
-LINE
-</Button>
-</Link>
-</div>
-</div>
-<p className="text-sm text-muted-foreground mt-4">
-※ 各ボタンをクリックすると、レビューがコピーされ、該当のレビューページが新しいタブで開きます。
-</p>
-</CardContent>
-<CardFooter>
-<Link href="/">
-<Button variant="outline">
-<ArrowLeft className="mr-2 h-4 w-4" />
-新しいアンケートを開始
-</Button>
-</Link>
-</CardFooter>
-</Card>
+console.log('Google シートへの保存が完了しました。');
+} catch (error) {
+console.error('Google シートへの保存中にエラーが発生しました:', error);
+if (error instanceof Error && 'response' in error) {
+console.error(
+'エラーレスポンス:',
+JSON.stringify(
+(error as { response?: { data: unknown } }).response?.data,
+null,
+2
 )
+);
+} else {
+console.error('エラーの詳細:', error);
+}
+throw new Error(
+'Google シートへの保存に失敗しました: ' +
+(error instanceof Error ? error.message : '不明なエラー')
+);
+}
 }
