@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { ArrowLeft, Copy, ExternalLink } from 'lucide-react'
 import Link from 'next/link'
-import { useToast } from "@/components/ui/use-toast"
 
 interface SurveyResultProps {
 generatedReview: string;
@@ -13,7 +12,10 @@ generatedReview: string;
 
 export default function SurveyResult({ generatedReview }: SurveyResultProps) {
 const [isCopied, setIsCopied] = useState(false);
-const { toast } = useToast()
+
+const showToast = (message: string) => {
+alert(message);
+};
 
 const reviewUrls = {
 google: 'https://g.page/r/YOUR_GOOGLE_REVIEW_ID/review',
@@ -31,18 +33,11 @@ const copyToClipboard = async () => {
 try {
 await navigator.clipboard.writeText(generatedReview);
 setIsCopied(true);
-toast({
-title: "コピーしました",
-description: "レビューがクリップボードにコピーされました。",
-})
+showToast("レビューがクリップボードにコピーされました。");
 setTimeout(() => setIsCopied(false), 2000);
 } catch (err) {
 console.error('Failed to copy text: ', err);
-toast({
-title: "コピーに失敗しました",
-description: "レビューのコピーに失敗しました。もう一度お試しください。",
-variant: "destructive",
-})
+showToast("コピーに失敗しました。もう一度お試しください。");
 }
 };
 
