@@ -52,13 +52,16 @@ console.log('受信した回答:', answers);
 
 if (!answers || !Array.isArray(answers) || answers.length !== 5) {
 console.error('無効な回答フォーマット');
-return NextResponse.json({ success: false, error: '無効な回答フォーマット' }, { status: 400 });
+return NextResponse.json(
+{ success: false, error: '無効な回答フォーマット' },
+{ status: 400 }
+);
 }
 
 const review = await generateReview(answers);
-await saveToGoogleSheet(answers, review);
+const modifiedReview = await saveToGoogleSheet(answers, review);
 
-return NextResponse.json({ success: true, review });
+return NextResponse.json({ success: true, review: modifiedReview });
 } catch (error) {
 console.error('リクエスト処理中にエラーが発生しました:', error);
 return NextResponse.json(
@@ -80,7 +83,7 @@ const prompt = `以下のエンゲージメントアンケート結果から、�
 const response = await openai.chat.completions.create({
 model: 'gpt-3.5-turbo',
 messages: [
-{ role: 'system', content: 'あなたは顧客の声を自然な口コミに変換する専門家です。' },
+{ role: 'system', content: 'あなたは顧客の声を自然な口コミに変換する専門家です。基本的にはポジティブ思考です。「」や:を使わないでください。自然な口コミを意識して。また口コミは1件だけでいいです。' },
 { role: 'user', content: prompt },
 ],
 max_tokens: 200,
@@ -92,12 +95,13 @@ return response.choices[0].message?.content?.trim() || '';
 } catch (error) {
 console.error('レビュー生成中にエラーが発生しました:', error);
 throw new Error(
-'レビューの生成に失敗しました: ' + (error instanceof Error ? error.message : '不明なエラー')
+'レビューの生成に失敗しました: ' +
+(error instanceof Error ? error.message : '不明なエラー')
 );
 }
 }
 
-async function saveToGoogleSheet(answers: string[], review: string): Promise<void> {
+async function saveToGoogleSheet(answers: string[], review: string): Promise<string> {
 console.log('Google シートに保存中...');
 try {
 const privateKey = env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n');
@@ -108,8 +112,6 @@ email: env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
 key: privateKey,
 scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 });
-
-console.log('JWT が正常に作成されました。');
 
 const doc = new GoogleSpreadsheet(env.GOOGLE_SHEET_ID, jwt);
 console.log('GoogleSpreadsheet インスタンスが作成されました。');
@@ -129,6 +131,7 @@ const headers = [
 '総合評価',
 '再利用意向',
 '生成されたレビュー',
+'修正レビュー',
 ];
 
 // ヘッダー行を無条件に設定
@@ -144,25 +147,37 @@ const newRowData = {
 '総合評価': answers[3],
 '再利用意向': answers[4],
 '生成されたレビュー': review,
+'修正レビュー': '', // この列は空白のままにします
 };
 
 // 行を追加
-await sheet.addRow(newRowData);
+const addedRow = await sheet.addRow(newRowData);
 console.log('行が正常に追加されました。');
 
+// H列（修正レビュー）の値を取得
+const modifiedReview = addedRow.get('修正レビュー') || review;
+console.log('修正レビューを取得しました:', modifiedReview);
+
 console.log('Google シートへの保存が完了しました。');
+
+return modifiedReview; // 修正レビューを返す
 } catch (error) {
 console.error('Google シートへの保存中にエラーが発生しました:', error);
 if (error instanceof Error && 'response' in error) {
 console.error(
 'エラーレスポンス:',
-JSON.stringify((error as { response?: { data: unknown } }).response?.data, null, 2)
+JSON.stringify(
+(error as { response?: { data: unknown } }).response?.data,
+null,
+2
+)
 );
 } else {
 console.error('エラーの詳細:', error);
 }
 throw new Error(
-'Google シートへの保存に失敗しました: ' + (error instanceof Error ? error.message : '不明なエラー')
+'Google シートへの保存に失敗しました: ' +
+(error instanceof Error ? error.message : '不明なエラー')
 );
 }
 }
