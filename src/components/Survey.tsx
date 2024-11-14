@@ -1,4 +1,3 @@
-// Start of Selection
 "use client";
 
 import { useState } from "react";
@@ -69,11 +68,15 @@ export default function Survey({ questions, onComplete }: SurveyProps) {
     }
   };
 
+  const isCurrentAnswerSelected = !!answers[questions[currentQuestion].id];
+
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 sm:px-0">
+    <div className="flex items-start justify-start sm:px-0">
       <Card className="w-full max-w-[500px] mx-auto">
         <CardHeader>
-          <CardTitle>お客様アンケート</CardTitle>
+          <CardTitle style={{ lineHeight: 1.8 }}>
+            {questions[currentQuestion].question}
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6 relative">
           <div className="relative pt-1">
@@ -87,9 +90,6 @@ export default function Survey({ questions, onComplete }: SurveyProps) {
             </div>
           </div>
           <div className="space-y-4">
-            <h3 className="text-xl font-medium">
-              {questions[currentQuestion].question}
-            </h3>
             <RadioGroup
               onValueChange={(value: string) =>
                 handleAnswer(questions[currentQuestion].id, value)
@@ -110,7 +110,7 @@ export default function Survey({ questions, onComplete }: SurveyProps) {
                   />
                   <Label
                     htmlFor={option}
-                    className={`flex items-center flex-grow cursor-pointer px-2 ${
+                    className={`flex items-center flex-grow cursor-pointer ${
                       answers[questions[currentQuestion].id] === option
                         ? "font-bold"
                         : ""
@@ -135,7 +135,12 @@ export default function Survey({ questions, onComplete }: SurveyProps) {
             {currentQuestion < questions.length - 1 ? (
               <Button
                 onClick={handleNext}
-                className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 active:from-blue-700 active:to-purple-800 transition-all duration-200"
+                className={`w-full transition-all duration-200 ${
+                  isCurrentAnswerSelected
+                    ? "bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 active:from-blue-700 active:to-purple-800"
+                    : "bg-gray-300 text-black cursor-not-allowed"
+                }`}
+                disabled={!isCurrentAnswerSelected}
               >
                 次へ
               </Button>
@@ -148,7 +153,7 @@ export default function Survey({ questions, onComplete }: SurveyProps) {
                 {isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    送信中...
+                    レビューをAIが生成中．．．
                   </>
                 ) : (
                   "送信してクーポンGET"
@@ -159,7 +164,7 @@ export default function Survey({ questions, onComplete }: SurveyProps) {
               <Button
                 onClick={handlePrevious}
                 disabled={currentQuestion === 0}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-gray-400 hover:text-gray-500 bg-transparent shadow-none"
               >
                 前へ
               </Button>

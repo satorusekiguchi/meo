@@ -49,7 +49,10 @@ export default function ClientSurvey() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-100 to-white">
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ backgroundColor: "#ffffff" }}
+      >
         <div className="text-center" role="alert">
           <h1 className="text-3xl font-bold mb-4">エラーが発生しました</h1>
           <p className="text-xl">{error}</p>
@@ -60,7 +63,10 @@ export default function ClientSurvey() {
 
   if (!clientConfig) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-100 to-white">
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ backgroundColor: "#ffffff" }}
+      >
         <div className="text-center" aria-live="polite">
           <h1 className="text-3xl font-bold mb-4">読み込み中...</h1>
           <p className="text-xl">クライアント設定を取得しています</p>
@@ -70,10 +76,10 @@ export default function ClientSurvey() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white py-8">
+    <div className="min-h-screen py-8" style={{ backgroundColor: "#ffffff" }}>
       <div className="container mx-auto px-4">
-        <h1 className="text-3xl font-bold text-center mb-8">
-          {clientConfig.name}のアンケート
+        <h1 className="text-3xl font-bold text-center mb-4">
+          {clientConfig.name}
         </h1>
         {!surveyCompleted ? (
           <Survey
@@ -84,6 +90,11 @@ export default function ClientSurvey() {
           <SurveyResult generatedReview={generatedReview} />
         )}
       </div>
+      <footer className="text-center py-4">
+        <p className="text-sm text-gray-500">
+          © 2024 エス・オー・データ株式会社
+        </p>
+      </footer>
     </div>
   );
 }

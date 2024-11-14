@@ -58,21 +58,21 @@ export default function SurveyResult({ generatedReview }: SurveyResultProps) {
 
   return (
     <>
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-full max-w-2xl mx-auto px-4 sm:px-0 py-8">
+      <div className="min-h-screen flex items-start justify-center sm:px-6">
+        <div className="w-full max-w-2xl mx-auto py-8">
           <Card className="w-full">
             <CardHeader>
               <CardTitle className="text-2xl font-bold text-center">
-                ありがとうございました！
+                ありがとうございました&#x1f647;
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               <div>
-                <h3 className="text-xl font-semibold mb-3">
-                  あなたの回答から生成されたレビューです
+                <h3 className="text-3xl font-semibold mb-3">
+                  あなたの回答から生成されたレビューです&#x1f4ac;
                 </h3>
-                <div className="bg-muted p-5 rounded-md shadow-inner">
-                  <p className="text-xl">
+                <div className="bg-gray-100 p-5 rounded-md shadow-inner">
+                  <p className="text-lg leading-relaxed">
                     {generatedReview || "レビューがまだ生成されていません。"}
                   </p>
                 </div>
@@ -80,7 +80,7 @@ export default function SurveyResult({ generatedReview }: SurveyResultProps) {
               <div className="space-y-4">
                 <Button
                   onClick={copyToClipboard}
-                  className="w-full transition-all duration-200 ease-in-out text-base"
+                  className="w-full transition-all duration-200 ease-in-out text-lg"
                   variant={isCopied ? "outline" : "default"}
                 >
                   {isCopied ? (
@@ -98,35 +98,35 @@ export default function SurveyResult({ generatedReview }: SurveyResultProps) {
                 <div className="grid grid-cols-2 gap-3">
                   <Button
                     onClick={copyAndRedirect(reviewUrls.google)}
-                    className="w-full text-base"
+                    className="w-full text-sm"
                   >
                     <ExternalLink className="mr-2 h-5 w-5" />
                     Googleに投稿
                   </Button>
                   <Button
                     onClick={copyAndRedirect(reviewUrls.tabelog)}
-                    className="w-full text-base"
+                    className="w-full text-sm"
                   >
                     <ExternalLink className="mr-2 h-5 w-5" />
                     食べログに投稿
                   </Button>
                   <Button
                     onClick={copyAndRedirect(reviewUrls.gurunavi)}
-                    className="w-full text-base"
+                    className="w-full text-sm"
                   >
                     <ExternalLink className="mr-2 h-5 w-5" />
                     ぐるなびに投稿
                   </Button>
                   <Button
                     onClick={copyAndRedirect(reviewUrls.hotpepper)}
-                    className="w-full text-base"
+                    className="w-full text-sm"
                   >
                     <ExternalLink className="mr-2 h-5 w-5" />
                     ホットペッパーに投稿
                   </Button>
                 </div>
               </div>
-              <div className="w-full max-w-[450px] mx-auto aspect-square bg-gray-200 rounded-lg overflow-hidden shadow-md">
+              <div className="w-full mx-auto aspect-square bg-gray-200 rounded-lg overflow-hidden shadow-md">
                 <Image
                   src="/images/common/postcss.svg"
                   alt="クーポン"
@@ -136,7 +136,9 @@ export default function SurveyResult({ generatedReview }: SurveyResultProps) {
                 />
               </div>
               <div className="mt-6">
-                <h3 className="text-center font-semibold mb-2">Follow Me!</h3>
+                <h3 className="text-center font-semibold mb-2">
+                  フォローしてください！
+                </h3>
                 <div className="grid grid-cols-3 gap-2">
                   <Link
                     href={socialUrls.instagram}
@@ -144,7 +146,7 @@ export default function SurveyResult({ generatedReview }: SurveyResultProps) {
                     rel="noopener noreferrer"
                     className="w-full"
                   >
-                    <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+                    <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-lg">
                       Instagram
                     </Button>
                   </Link>
@@ -154,7 +156,7 @@ export default function SurveyResult({ generatedReview }: SurveyResultProps) {
                     rel="noopener noreferrer"
                     className="w-full"
                   >
-                    <Button className="w-full bg-[#00B900] hover:bg-[#00A000] text-white">
+                    <Button className="w-full bg-[#00B900] hover:bg-[#00A000] text-white text-lg">
                       LINE
                     </Button>
                   </Link>
@@ -164,13 +166,13 @@ export default function SurveyResult({ generatedReview }: SurveyResultProps) {
                     rel="noopener noreferrer"
                     className="w-full"
                   >
-                    <Button className="w-full bg-black hover:bg-gray-800 text-white">
+                    <Button className="w-full bg-black hover:bg-gray-800 text-white text-lg">
                       X
                     </Button>
                   </Link>
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground mt-4 text-center">
+              <p className="text-sm text-gray-500 mt-4 text-center">
                 ※
                 このレビューはAIによって生成されています。内容の正確性や適切性については、ご自身でご確認ください。
               </p>

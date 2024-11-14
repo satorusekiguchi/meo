@@ -1,12 +1,10 @@
-// src/app/[client]/page.tsx
-
 import Link from "next/link";
+import Image from "next/image";
 import { getClientConfig, ClientId } from "@/config/clientConfig";
 
 export default function ClientPage({ params }: { params: { client: string } }) {
   // デバッグ用ログ
   console.log("クライアントページパラメータ:", params);
-  console.log("Params in [client]/page.tsx:", params);
 
   // params.clientをClientId型にキャスト
   const clientId = params.client as ClientId;
@@ -36,22 +34,37 @@ export default function ClientPage({ params }: { params: { client: string } }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white py-8">
-      <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold text-center mb-8">
-          {clientConfig.name}
-        </h1>
-        <div className="text-center">
-          <p className="mb-6">
-            当店のサービスについてのアンケートにご協力ください。
-          </p>
-          <Link
-            href={`/${params.client}/survey`}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
-          >
-            アンケートに回答する
-          </Link>
+      <div className="container mx-auto px-4 max-w-2xl">
+        <div className="bg-white rounded-xl shadow-md overflow-hidden">
+          <div className="p-8">
+            <div className="flex justify-center mb-6">
+              <Image
+                src={clientConfig.logoUrl}
+                alt={`${clientConfig.name}ロゴ`}
+                width={200}
+                height={100}
+              />
+            </div>
+            <h2 className="text-2xl font-bold text-center mb-4">
+              {clientConfig.name}へのご来店ありがとうございます。
+            </h2>
+            <p className="text-center mb-6">
+              当店のサービスについてのアンケートにご協力ください。
+            </p>
+            <div className="text-center">
+              <Link
+                href={`/${params.client}/survey`}
+                className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out inline-block"
+              >
+                アンケートに答えてクーポンをGET
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
+      <footer className="mt-8 text-center text-gray-500 text-sm">
+        <p>&copy; 2024 エンゲージメントMEO. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
