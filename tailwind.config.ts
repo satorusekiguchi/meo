@@ -17,10 +17,7 @@ module.exports = {
     },
     fontSize: {
       base: ["14px", "20px"], // フォントサイズ14px、行間20px
-      sm: ["12px", "18px"],
-      lg: ["16px", "24px"],
-      xl: ["18px", "26px"],
-      "2xl": ["20px", "28px"],
+      // End of Selection
     },
     extend: {
       colors: {
