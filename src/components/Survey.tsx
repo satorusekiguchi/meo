@@ -1,3 +1,4 @@
+// Start of Selection
 "use client";
 
 import { useState } from "react";
@@ -90,7 +91,7 @@ export default function Survey({ questions, onComplete }: SurveyProps) {
               {questions[currentQuestion].question}
             </h3>
             <RadioGroup
-              onValueChange={(value) =>
+              onValueChange={(value: string) =>
                 handleAnswer(questions[currentQuestion].id, value)
               }
               value={answers[questions[currentQuestion].id] || ""}
@@ -158,7 +159,6 @@ export default function Survey({ questions, onComplete }: SurveyProps) {
               <Button
                 onClick={handlePrevious}
                 disabled={currentQuestion === 0}
-                variant="outline"
                 className="text-gray-500 hover:text-gray-700"
               >
                 前へ

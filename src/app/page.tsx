@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   Star,
@@ -13,6 +14,12 @@ import {
   MapPin,
   Gift,
   ThumbsUp,
+  Globe,
+  ShieldCheck,
+  Phone,
+  Mail,
+  ChevronRight,
+  CheckCircle2,
 } from "lucide-react";
 
 function useSmooth() {
@@ -33,13 +40,13 @@ function useSmooth() {
   }, []);
 }
 
-export default function Home() {
+export default function Component() {
   useSmooth();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-50 via-white to-indigo-50 text-sm">
       <header className="bg-white shadow-sm sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div className="max-w-[1400px] mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-2">
             <MapPin className="w-8 h-8 text-indigo-600" />
             <h1 className="text-2xl font-bold text-indigo-600">
@@ -82,10 +89,26 @@ export default function Home() {
               </li>
               <li>
                 <a
+                  href="#case-studies"
+                  className="text-gray-600 hover:text-indigo-600 transition duration-300"
+                >
+                  事例
+                </a>
+              </li>
+              <li>
+                <a
                   href="#demo"
                   className="text-gray-600 hover:text-indigo-600 transition duration-300"
                 >
                   デモ
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  className="text-gray-600 hover:text-indigo-600 transition duration-300"
+                >
+                  お問い合わせ
                 </a>
               </li>
             </ul>
@@ -94,13 +117,14 @@ export default function Home() {
       </header>
 
       <main className="text-sm">
+        {/* ヒーローセクション */}
         <section className="py-20 text-center bg-gradient-to-r from-indigo-600 to-blue-500 text-white">
-          <div className="container mx-auto px-4">
+          <div className="max-w-[1400px] mx-auto px-4">
             <h2 className="text-5xl font-bold mb-6">
-              地図から始まる、顧客との絆
+              地図から始まる、新たな顧客との絆
             </h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
-              エンゲージメントMEOは、Googleマップ上でのあなたのビジネスの存在感を高め、実際の顧客エンゲージメントにつなげるAI駆動型プラットフォームです。
+              エンゲージメントMEOは、Googleマップ上でのビジネスの存在感を飛躍的に高め、実際の顧客エンゲージメントへとつなげるAI駆動型プラットフォームです。質の高い口コミを増やし、ローカルSEOを最適化します。
             </p>
             <a
               href="#demo"
@@ -112,8 +136,9 @@ export default function Home() {
           </div>
         </section>
 
+        {/* 主な機能セクション */}
         <section id="features" className="py-16 bg-white">
-          <div className="container mx-auto px-4">
+          <div className="max-w-[1400px] mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
               主な機能
             </h2>
@@ -121,27 +146,43 @@ export default function Home() {
               <FeatureCard
                 icon={<Star className="w-12 h-12 text-yellow-500" />}
                 title="AIレビュー最適化"
-                description="AIがアンケート結果を分析し、最適化されたレビューを自動生成。Googleマップ上での評価向上に貢献します。"
+                description="AIがアンケート結果を解析し、最適なレビューを自動生成します。キーワードを自然に組み込み、ビジネスの強みを際立たせる文章で、Googleマップ上での評価向上に大きく貢献します。"
               />
               <FeatureCard
                 icon={<BarChart className="w-12 h-12 text-blue-500" />}
                 title="リアルタイムMEO分析"
-                description="Googleマップでのビジネスパフォーマンスをリアルタイムで分析。競合との比較や改善点を可視化します。"
+                description="Googleマップ上でのビジネスパフォーマンスをリアルタイムで分析。競合他社との比較や改善ポイントを一目で確認でき、検索順位、クリック率、顧客行動など詳細なデータを提供します。"
               />
               <FeatureCard
                 icon={<MessageCircle className="w-12 h-12 text-green-500" />}
                 title="カスタマーエンゲージメント"
-                description="顧客とのコミュニケーションを一元管理。レビューへの返信や顧客フォローアップを効率化します。"
+                description="顧客とのコミュニケーションを一元管理し、レビューへの返信やフォローアップを効率化。AIによる返信提案機能で、迅速かつ的確な対応をサポートします。"
+              />
+              <FeatureCard
+                icon={<ShieldCheck className="w-12 h-12 text-indigo-500" />}
+                title="データセキュリティ"
+                description="高度な暗号化技術と多層防御システムで、顧客情報とビジネスデータを強固に保護。GDPRに準拠したデータ管理で、プライバシーを最優先に考えます。"
+              />
+              <FeatureCard
+                icon={<Globe className="w-12 h-12 text-purple-500" />}
+                title="多言語サポート"
+                description="多言語対応で、グローバルな顧客層へアプローチ。各言語のネイティブスピーカーによる校正で、自然で魅力的なレビューを生成します。"
+              />
+              <FeatureCard
+                icon={<TrendingUp className="w-12 h-12 text-pink-500" />}
+                title="マーケティング統合"
+                description="Google広告やMeta広告など主要なマーケティングプラットフォームと連携。MEOの効果を他のマーケティング活動と組み合わせ、総合的な集客戦略を実現します。"
               />
             </div>
           </div>
         </section>
 
+        {/* メリットセクション */}
         <section
           id="benefits"
           className="py-16 bg-gradient-to-r from-indigo-100 to-blue-100"
         >
-          <div className="container mx-auto px-4">
+          <div className="max-w-[1400px] mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
               エンゲージメントMEOのメリット
             </h2>
@@ -149,29 +190,30 @@ export default function Home() {
               <BenefitCard
                 icon={<TrendingUp className="w-8 h-8 text-indigo-600" />}
                 title="ローカルSEOの向上"
-                description="Googleマップでの表示順位が上昇し、より多くの潜在顧客にリーチできます。"
+                description="Googleマップでの表示順位を上昇させ、より多くの潜在顧客にアプローチ。地域検索で上位表示されることで、実店舗への来店数も増加します。"
               />
               <BenefitCard
                 icon={<Users className="w-8 h-8 text-indigo-600" />}
                 title="顧客満足度の向上"
-                description="顧客の声に迅速に対応することで、満足度と信頼性が向上します。"
+                description="顧客の声に素早く対応し、満足度と信頼性を向上。ポジティブな口コミの増加で、新規顧客の獲得にもつながります。"
               />
               <BenefitCard
                 icon={<Search className="w-8 h-8 text-indigo-600" />}
                 title="オンライン視認性の増加"
-                description="最適化されたビジネスプロフィールにより、検索結果での露出が増加します。"
+                description="最適化されたビジネスプロフィールで、検索結果での露出を拡大。写真、営業時間、サービス内容など詳細な情報を効果的に表示し、クリック率を向上させます。"
               />
               <BenefitCard
                 icon={<BarChart className="w-8 h-8 text-indigo-600" />}
                 title="データ駆動型の意思決定"
-                description="詳細な分析結果を基に、効果的なビジネス戦略を立案できます。"
+                description="詳細な分析データを活用し、効果的なビジネス戦略を策定。顧客の行動パターンや嗜好を把握し、サービス改善やマーケティング施策に反映できます。"
               />
             </div>
           </div>
         </section>
 
+        {/* 特徴セクション */}
         <section id="unique-features" className="py-16 bg-white">
-          <div className="container mx-auto px-4">
+          <div className="max-w-[1400px] mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
               エンゲージメントMEOの特徴
             </h2>
@@ -183,32 +225,38 @@ export default function Home() {
                     順位測定を超えた、本質的なアプローチ
                   </h3>
                   <p>
-                    他社のMEOツールは単に順位を測定するだけで、重要な「なぜ順位が変動したのか？」を説明することが困難です。
-                    エンゲージメントMEOは、順位測定ではなく、順位上昇に最も重要な「自然な口コミ」の確保にフォーカスしたMEOツールです。
-                    私たちは、真の顧客満足度を向上させ、自然な形でポジティブな口コミを生み出すことに注力しています。
+                    他社のMEOツールは単に順位を測定するだけで、肝心な「なぜ順位が変動したのか？」を解明することが難しいです。
+                    エンゲージメントMEOは、順位測定ではなく、順位上昇に不可欠な「自然な口コミ」の獲得に焦点を当てたMEOツールです。
+                    私たちは、真の顧客満足度を高め、自然にポジティブな口コミが生まれる環境を創出することに力を入れています。
                   </p>
                 </div>
               </div>
               <div className="pl-16">
-                <h4 className="text-lg font-semibold mb-2">
-                  エンゲージメントMEOの独自アプローチ：
-                </h4>
-                <ul className="list-disc pl-5">
-                  <li>顧客の声を丁寧に収集し、分析</li>
-                  <li>AIを活用した最適なレビュー生成と投稿支援</li>
-                  <li>顧客満足度に基づいたパーソナライズされたクーポン発行</li>
-                  <li>継続的な顧客エンゲージメント戦略の提案と実施</li>
+                <h4 className="text-lg font-semibold mb-2">独自アプローチ</h4>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li>
+                    AIによる高度な感情分析で、顧客フィードバックを詳細に解析
+                  </li>
+                  <li>
+                    ビジネスの特性に合わせた、カスタマイズ可能なレビュー・テンプレート
+                  </li>
+                  <li>
+                    顧客の行動パターンを基に、最適なタイミングでのレビュー依頼を実施
+                  </li>
+                  <li>競合分析機能で、差別化戦略の立案をサポート</li>
+                  <li>地域特性を考慮した、ローカライズされたSEO戦略を提案</li>
                 </ul>
               </div>
             </div>
           </div>
         </section>
 
+        {/* 仕組みセクション */}
         <section
           id="how-it-works"
           className="py-16 bg-gradient-to-r from-indigo-100 to-blue-100"
         >
-          <div className="container mx-auto px-4">
+          <div className="max-w-[1400px] mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
               エンゲージメントMEOの仕組み
             </h2>
@@ -217,31 +265,31 @@ export default function Home() {
                 <TimelineItem
                   number="1"
                   title="顧客アンケートの実施"
-                  description="カスタマイズ可能なアンケートを通じて、顧客から詳細なフィードバックを収集します。"
+                  description="カスタマイズ可能なアンケートで、顧客から詳細なフィードバックを収集。QRコードやメールなど複数の回答方法を提供し、回答率を最大化します。"
                   icon={<MessageCircle className="w-6 h-6 text-white" />}
                 />
                 <TimelineItem
                   number="2"
                   title="AIによるレビュー生成"
-                  description="収集したデータを基に、AIが最適化されたレビューを自動生成します。"
+                  description="収集したデータを基に、AIが最適なレビューを自動生成。自然言語処理技術で、顧客の声を忠実に反映しつつ、SEOに効果的な文章を作成します。"
                   icon={<Star className="w-6 h-6 text-white" />}
                 />
                 <TimelineItem
                   number="3"
                   title="クーポン発行"
-                  description="顧客の満足度に応じて、パーソナライズされたクーポンを自動発行します。"
+                  description="顧客の満足度に応じて、パーソナライズされたクーポンを自動発行。リピート率向上と新規顧客獲得の両方に効果的なインセンティブを提供します。"
                   icon={<Gift className="w-6 h-6 text-white" />}
                 />
                 <TimelineItem
                   number="4"
                   title="Googleマップへの反映"
-                  description="生成されたレビューを顧客の承認を得てGoogleマップに投稿し、ビジネスの評価を向上させます。"
+                  description="生成されたレビューを顧客の承認を得てGoogleマップに投稿。投稿のタイミングも最適化し、最大の効果を得られるようにします。"
                   icon={<MapPin className="w-6 h-6 text-white" />}
                 />
                 <TimelineItem
                   number="5"
                   title="継続的な分析と最適化"
-                  description="パフォーマンスを常時監視し、AIが継続的に戦略を最適化します。"
+                  description="パフォーマンスを常時監視し、AIが戦略を継続的に最適化。競合分析、キーワードトレンド、顧客行動の変化を考慮し、最新のMEO戦略を提案します。"
                   icon={<BarChart className="w-6 h-6 text-white" />}
                 />
               </ol>
@@ -249,8 +297,40 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="demo" className="py-16 bg-white">
-          <div className="container mx-auto px-4 text-center">
+        {/* 事例セクション */}
+        <section id="case-studies" className="py-16 bg-white">
+          <div className="max-w-[1400px] mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
+              成功事例
+            </h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <CaseStudyCard
+                title="地域密着型レストラン"
+                description="エンゲージメントMEO導入から3ヶ月で、Googleマップでの表示回数が200%増加。来店客数が30%アップし、売上が大幅に改善しました。"
+                results={[
+                  "Googleマップでの表示回数: 200%増",
+                  "来店客数: 30%増",
+                  "平均評価: 3.8→4.6星",
+                  "月間レビュー数: 5件→25件",
+                ]}
+              />
+              <CaseStudyCard
+                title="美容サロンチェーン"
+                description="10店舗への一括導入で、各店舗のオンライン予約数が平均50%増加。顧客満足度も向上し、リピート率が20%改善されました。"
+                results={[
+                  "オンライン予約数: 50%増",
+                  "顧客満足度: 15%向上",
+                  "リピート率: 20%改善",
+                  "新規顧客獲得コスト: 30%削減",
+                ]}
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* デモセクション */}
+        <section id="demo" className="py-16 bg-indigo-50">
+          <div className="max-w-[1400px] mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-8 text-gray-800">
               無料デモを体験
             </h2>
@@ -271,43 +351,68 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* お問い合わせセクション */}
+        <section id="contact" className="py-16 bg-white">
+          <div className="max-w-[1400px] mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold mb-8 text-gray-800">
+              お問い合わせ
+            </h2>
+            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+              サービスに関するご質問やデモのご依頼など、お気軽にお問い合わせください。
+              専門のコンサルタントが、あなたのビジネスに最適なMEO戦略をご提案します。
+            </p>
+            <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
+              <ContactInfo
+                icon={<Phone className="w-8 h-8 text-indigo-600" />}
+                title="お電話でのお問い合わせ"
+                info="03-1234-5678"
+              />
+              <ContactInfo
+                icon={<Mail className="w-8 h-8 text-indigo-600" />}
+                title="メールでのお問い合わせ"
+                info="support@engagement-meo.com"
+              />
+            </div>
+          </div>
+        </section>
       </main>
 
       <footer className="bg-gray-800 text-white py-12 text-xs">
-        <div className="container mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <h3 className="text-2xl font-bold mb-4 flex items-center">
                 <MapPin className="w-6 h-6 mr-2" />
                 エンゲージメントMEO
               </h3>
-              <p className="text-gray-400">地図から始まる、顧客との絆</p>
+              <p className="text-gray-400">地図から始まる、新たな顧客との絆</p>
             </div>
             <div>
               <h4 className="text-lg font-semibold mb-4">サービス</h4>
               <ul className="space-y-2">
                 <li>
                   <a
-                    href="#"
+                    href="#features"
                     className="text-gray-400 hover:text-white transition duration-300"
                   >
-                    MEO最適化
+                    機能一覧
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="#how-it-works"
                     className="text-gray-400 hover:text-white transition duration-300"
                   >
-                    レビュー管理
+                    仕組み
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="#demo"
                     className="text-gray-400 hover:text-white transition duration-300"
                   >
-                    顧客エンゲージメント
+                    デモ
                   </a>
                 </li>
               </ul>
@@ -417,8 +522,10 @@ function FeatureCard({
   return (
     <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 border border-gray-100">
       <div className="flex justify-center mb-4">{icon}</div>
-      <h3 className="text-xl font-semibold mb-2 text-gray-800">{title}</h3>
-      <p className="text-gray-600">{description}</p>
+      <h3 className="text-xl font-semibold mb-2 text-gray-800 text-center">
+        {title}
+      </h3>
+      <p className="text-gray-600 text-center">{description}</p>
     </div>
   );
 }
@@ -484,5 +591,49 @@ function DemoLink({
       {children}
       <ArrowRight className="ml-2 w-5 h-5" />
     </Link>
+  );
+}
+
+function ContactInfo({
+  icon,
+  title,
+  info,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  info: string;
+}) {
+  return (
+    <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 border border-gray-100">
+      <div className="mb-4">{icon}</div>
+      <h4 className="text-lg font-semibold mb-2 text-gray-800">{title}</h4>
+      <p className="text-gray-600">{info}</p>
+    </div>
+  );
+}
+
+function CaseStudyCard({
+  title,
+  description,
+  results,
+}: {
+  title: string;
+  description: string;
+  results: string[];
+}) {
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 border border-gray-100">
+      <h3 className="text-xl font-semibold mb-2 text-gray-800">{title}</h3>
+      <p className="text-gray-600 mb-4">{description}</p>
+      <h4 className="text-lg font-semibold mb-2 text-gray-800">主な成果</h4>
+      <ul className="list-none space-y-2">
+        {results.map((result, index) => (
+          <li key={index} className="flex items-center text-gray-600">
+            <CheckCircle2 className="w-5 h-5 text-green-500 mr-2" />
+            {result}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
