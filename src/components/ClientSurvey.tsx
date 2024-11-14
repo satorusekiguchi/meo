@@ -91,9 +91,7 @@ export default function ClientSurvey() {
         )}
       </div>
       <footer className="text-center py-4">
-        <p className="text-sm text-gray-500">
-          © 2024 エス・オー・データ株式会社
-        </p>
+        <p className="text-sm text-gray-500">© 2024 Engagement MEO.</p>
       </footer>
     </div>
   );

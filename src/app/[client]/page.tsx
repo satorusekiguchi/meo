@@ -13,7 +13,7 @@ export default function ClientPage({ params }: { params: { client: string } }) {
   if (!clientConfig) {
     return (
       <div
-        className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-100 to-white"
+        className="min-h-screen flex items-center justify-center bg-white"
         role="alert"
       >
         <div className="text-center">
@@ -33,7 +33,7 @@ export default function ClientPage({ params }: { params: { client: string } }) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white py-8">
+    <div className="min-h-screen bg-white py-8">
       <div className="container mx-auto px-4 max-w-2xl">
         <div className="bg-white rounded-xl shadow-md overflow-hidden">
           <div className="p-8">
@@ -63,7 +63,7 @@ export default function ClientPage({ params }: { params: { client: string } }) {
         </div>
       </div>
       <footer className="mt-8 text-center text-gray-500 text-sm">
-        <p>&copy; 2024 エンゲージメントMEO. All rights reserved.</p>
+        <p>&copy; 2024 Engagement MEO.</p>
       </footer>
     </div>
   );
