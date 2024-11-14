@@ -10,7 +10,7 @@ import { Loader2 } from "lucide-react";
 import { Question } from "@/config/clientConfig";
 
 interface SurveyProps {
-  questions: Question[];
+  questions: readonly Question[];
   onComplete: (review: string) => void;
 }
 
