@@ -1,0 +1,22 @@
+{
+	"workbench.settings.useSplitJSON": true,
+	"editor.formatOnSave": true,
+	"emmet.variables": {
+		"lang": "ja"
+	},
+	"window.zoomLevel": 0,
+	"editor.fontSize": 16,
+	"editor.tabSize": 4,
+	"editor.fontFamily": "HackGen",
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": false,
+	"html.format.extraLiners": "",
+	"html.format.preserveNewLines": false,
+	"editor.renderWhitespace": "boundary",
+	"editor.minimap.showSlider": "always",
+	"editor.quickSuggestions": {
+		"strings": true
+	},
+	"editor.suggest.insertMode": "replace",
+	"files.eol": "\n"
+}
