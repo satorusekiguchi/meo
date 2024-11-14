@@ -59,8 +59,8 @@ export default function SurveyResult({ generatedReview }: SurveyResultProps) {
   return (
     <>
       <div className="min-h-screen flex items-center justify-center">
-        <div className="container mx-auto px-4 py-8">
-          <Card className="w-full max-w-2xl mx-auto px-4 sm:px-0">
+        <div className="w-full max-w-2xl mx-auto px-4 sm:px-0 py-8">
+          <Card className="w-full">
             <CardHeader>
               <CardTitle className="text-2xl font-bold text-center">
                 ありがとうございました！
@@ -68,11 +68,11 @@ export default function SurveyResult({ generatedReview }: SurveyResultProps) {
             </CardHeader>
             <CardContent className="space-y-6">
               <div>
-                <h3 className="text-lg font-semibold mb-2">
+                <h3 className="text-xl font-semibold mb-3">
                   あなたの回答から生成されたレビューです
                 </h3>
-                <div className="bg-muted p-4 rounded-md shadow-inner">
-                  <p className="text-lg">
+                <div className="bg-muted p-5 rounded-md shadow-inner">
+                  <p className="text-xl">
                     {generatedReview || "レビューがまだ生成されていません。"}
                   </p>
                 </div>
@@ -80,48 +80,48 @@ export default function SurveyResult({ generatedReview }: SurveyResultProps) {
               <div className="space-y-4">
                 <Button
                   onClick={copyToClipboard}
-                  className="w-full transition-all duration-200 ease-in-out"
+                  className="w-full transition-all duration-200 ease-in-out text-base"
                   variant={isCopied ? "outline" : "default"}
                 >
                   {isCopied ? (
                     <>
-                      <Check className="mr-2 h-4 w-4" />
+                      <Check className="mr-2 h-5 w-5" />
                       コピーしました！
                     </>
                   ) : (
                     <>
-                      <Copy className="mr-2 h-4 w-4" />
+                      <Copy className="mr-2 h-5 w-5" />
                       レビューをコピー
                     </>
                   )}
                 </Button>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-3">
                   <Button
                     onClick={copyAndRedirect(reviewUrls.google)}
-                    className="w-full"
+                    className="w-full text-base"
                   >
-                    <ExternalLink className="mr-2 h-4 w-4" />
+                    <ExternalLink className="mr-2 h-5 w-5" />
                     Googleに投稿
                   </Button>
                   <Button
                     onClick={copyAndRedirect(reviewUrls.tabelog)}
-                    className="w-full"
+                    className="w-full text-base"
                   >
-                    <ExternalLink className="mr-2 h-4 w-4" />
+                    <ExternalLink className="mr-2 h-5 w-5" />
                     食べログに投稿
                   </Button>
                   <Button
                     onClick={copyAndRedirect(reviewUrls.gurunavi)}
-                    className="w-full"
+                    className="w-full text-base"
                   >
-                    <ExternalLink className="mr-2 h-4 w-4" />
+                    <ExternalLink className="mr-2 h-5 w-5" />
                     ぐるなびに投稿
                   </Button>
                   <Button
                     onClick={copyAndRedirect(reviewUrls.hotpepper)}
-                    className="w-full"
+                    className="w-full text-base"
                   >
-                    <ExternalLink className="mr-2 h-4 w-4" />
+                    <ExternalLink className="mr-2 h-5 w-5" />
                     ホットペッパーに投稿
                   </Button>
                 </div>
@@ -170,7 +170,7 @@ export default function SurveyResult({ generatedReview }: SurveyResultProps) {
                   </Link>
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground mt-4 text-center">
+              <p className="text-sm text-muted-foreground mt-4 text-center">
                 ※
                 このレビューはAIによって生成されています。内容の正確性や適切性については、ご自身でご確認ください。
               </p>

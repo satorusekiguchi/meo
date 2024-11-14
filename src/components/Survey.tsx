@@ -114,14 +114,14 @@ export default function Survey({
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <Card className="w-full max-w-[500px] mx-auto px-4 sm:px-0">
+    <div className="min-h-screen flex items-center justify-center px-4 sm:px-0">
+      <Card className="w-full max-w-[500px] mx-auto">
         <CardHeader>
           <CardTitle>お客様アンケート</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6 relative">
           <div className="relative pt-1">
-            <div className="overflow-hidden h-2 text-xs flex rounded-full bg-purple-200">
+            <div className="overflow-hidden h-3 text-xs flex rounded-full bg-purple-200">
               <div
                 style={{
                   width: `${((currentQuestion + 1) / questions.length) * 100}%`,
@@ -131,7 +131,7 @@ export default function Survey({
             </div>
           </div>
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">
+            <h3 className="text-xl font-medium">
               {questions[currentQuestion].question}
             </h3>
             <RadioGroup
@@ -144,7 +144,7 @@ export default function Survey({
               {questions[currentQuestion].options.map((option) => (
                 <div
                   key={option}
-                  className={`flex items-center py-3 cursor-pointer transition-all duration-300 ease-in-out`}
+                  className={`flex items-center py-4 cursor-pointer transition-all duration-300 ease-in-out`}
                   style={{ borderBottom: "1px solid #e2e8f0" }}
                 >
                   <RadioGroupItem
@@ -154,9 +154,13 @@ export default function Survey({
                   />
                   <Label
                     htmlFor={option}
-                    className={`flex items-center flex-grow cursor-pointer`}
+                    className={`flex items-center flex-grow cursor-pointer px-2 ${
+                      answers[questions[currentQuestion].id] === option
+                        ? "font-bold"
+                        : ""
+                    }`}
                   >
-                    <div className="w-5 h-5 mr-2 flex items-center justify-center overflow-hidden">
+                    <div className="w-6 h-6 mr-3 flex items-center justify-center overflow-hidden">
                       <Check
                         className={`text-blue-600 transition-all duration-300 ease-in-out ${
                           answers[questions[currentQuestion].id] === option
@@ -165,7 +169,7 @@ export default function Survey({
                         }`}
                       />
                     </div>
-                    {option}
+                    <span className="text-base">{option}</span>
                   </Label>
                 </div>
               ))}
@@ -204,7 +208,7 @@ export default function Survey({
               >
                 前へ
               </Button>
-              <span className="text-sm text-gray-500">
+              <span className="text-base text-gray-500">
                 {currentQuestion + 1} / {questions.length}
               </span>
             </div>
