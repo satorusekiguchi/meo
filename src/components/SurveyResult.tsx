@@ -60,7 +60,7 @@ export default function SurveyResult({ generatedReview }: SurveyResultProps) {
     <>
       <div className="min-h-screen flex items-center justify-center">
         <div className="container mx-auto px-4 py-8">
-          <Card className="w-full max-w-2xl mx-auto">
+          <Card className="w-full max-w-2xl mx-auto px-4 sm:px-0">
             <CardHeader>
               <CardTitle className="text-2xl font-bold text-center">
                 ありがとうございました！

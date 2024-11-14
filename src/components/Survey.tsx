@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Check } from "lucide-react";
+import { Loader2 } from "lucide-react";
 // import { Progress } from '@/components/ui/progress'
 
 const questions = [
@@ -114,7 +115,7 @@ export default function Survey({
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <Card className="w-full max-w-[500px]">
+      <Card className="w-full max-w-[500px] mx-auto px-4 sm:px-0">
         <CardHeader>
           <CardTitle>お客様アンケート</CardTitle>
         </CardHeader>
@@ -184,7 +185,14 @@ export default function Survey({
                 disabled={isSubmitting}
                 className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 active:from-blue-700 active:to-purple-800 transition-all duration-200"
               >
-                {isSubmitting ? "送信中..." : "送信してクーポンGET"}
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    送信中...
+                  </>
+                ) : (
+                  "送信してクーポンGET"
+                )}
               </Button>
             )}
             <div className="flex justify-between items-center w-full">
