@@ -7,59 +7,14 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Check } from "lucide-react";
 import { Loader2 } from "lucide-react";
-// import { Progress } from '@/components/ui/progress'
+import { Question } from "@/config/clientConfig";
 
-const questions = [
-  {
-    id: "satisfaction",
-    question: "今回のご利用はいかがでしたか？",
-    options: ["とても満足", "満足", "どちらでもない", "不満", "とても不満"],
-  },
-  {
-    id: "recommendation",
-    question: "当店を知人にすすめたいと思いますか？",
-    options: [
-      "是非すすめたい",
-      "すすめたい",
-      "どちらでもない",
-      "すすめたくない",
-      "全くすすめたくない",
-    ],
-  },
-  {
-    id: "repeat",
-    question: "また利用したいと思いますか？",
-    options: [
-      "是非利用したい",
-      "機会があれば利用したい",
-      "どちらでもない",
-      "あまり利用したくない",
-      "利用したくない",
-    ],
-  },
-  {
-    id: "improvement",
-    question: "改善してほしい点はありますか？",
-    options: ["接客", "料理", "価格", "雰囲気", "特になし"],
-  },
-  {
-    id: "other",
-    question: "その他、ご意見・ご要望がございましたら選択してください。",
-    options: [
-      "店舗の清潔さ",
-      "予約のしやすさ",
-      "メニューの種類",
-      "待ち時間",
-      "特になし",
-    ],
-  },
-];
-
-export default function Survey({
-  onComplete,
-}: {
+interface SurveyProps {
+  questions: Question[];
   onComplete: (review: string) => void;
-}) {
+}
+
+export default function Survey({ questions, onComplete }: SurveyProps) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
