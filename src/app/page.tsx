@@ -45,20 +45,20 @@ export default function Component() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-50 via-white to-indigo-50 text-sm">
-      <header className="bg-white shadow-sm sticky top-0 z-10">
-        <div className="max-w-[1400px] mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-2">
+      <header className="bg-white shadow-md sticky top-0 z-10">
+        <div className="max-w-[1400px] mx-auto px-6 py-4 flex justify-between items-center">
+          <div className="flex items-center space-x-3">
             <MapPin className="w-8 h-8 text-indigo-600" />
             <h1 className="text-2xl font-bold text-indigo-600">
               エンゲージメントMEO
             </h1>
           </div>
           <nav>
-            <ul className="flex space-x-6">
+            <ul className="flex space-x-8">
               <li>
                 <a
                   href="#features"
-                  className="text-gray-600 hover:text-indigo-600 transition duration-300"
+                  className="text-gray-700 hover:text-indigo-600 transition duration-300"
                 >
                   機能
                 </a>
@@ -66,7 +66,7 @@ export default function Component() {
               <li>
                 <a
                   href="#benefits"
-                  className="text-gray-600 hover:text-indigo-600 transition duration-300"
+                  className="text-gray-700 hover:text-indigo-600 transition duration-300"
                 >
                   メリット
                 </a>
@@ -74,7 +74,7 @@ export default function Component() {
               <li>
                 <a
                   href="#unique-features"
-                  className="text-gray-600 hover:text-indigo-600 transition duration-300"
+                  className="text-gray-700 hover:text-indigo-600 transition duration-300"
                 >
                   特徴
                 </a>
@@ -82,7 +82,7 @@ export default function Component() {
               <li>
                 <a
                   href="#how-it-works"
-                  className="text-gray-600 hover:text-indigo-600 transition duration-300"
+                  className="text-gray-700 hover:text-indigo-600 transition duration-300"
                 >
                   仕組み
                 </a>
@@ -90,7 +90,7 @@ export default function Component() {
               <li>
                 <a
                   href="#case-studies"
-                  className="text-gray-600 hover:text-indigo-600 transition duration-300"
+                  className="text-gray-700 hover:text-indigo-600 transition duration-300"
                 >
                   事例
                 </a>
@@ -98,7 +98,7 @@ export default function Component() {
               <li>
                 <a
                   href="#demo"
-                  className="text-gray-600 hover:text-indigo-600 transition duration-300"
+                  className="text-gray-700 hover:text-indigo-600 transition duration-300"
                 >
                   デモ
                 </a>
@@ -106,7 +106,7 @@ export default function Component() {
               <li>
                 <a
                   href="#contact"
-                  className="text-gray-600 hover:text-indigo-600 transition duration-300"
+                  className="text-gray-700 hover:text-indigo-600 transition duration-300"
                 >
                   お問い合わせ
                 </a>
@@ -119,8 +119,8 @@ export default function Component() {
       <main className="text-sm">
         {/* ヒーローセクション */}
         <section className="py-20 text-center bg-gradient-to-r from-indigo-600 to-blue-500 text-white">
-          <div className="max-w-[1400px] mx-auto px-4">
-            <h2 className="text-5xl font-bold mb-6">
+          <div className="max-w-[1400px] mx-auto px-6">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6">
               地図から始まる、新たな顧客との絆
             </h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
@@ -138,7 +138,7 @@ export default function Component() {
 
         {/* 主な機能セクション */}
         <section id="features" className="py-16 bg-white">
-          <div className="max-w-[1400px] mx-auto px-4">
+          <div className="max-w-[1400px] mx-auto px-6">
             <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
               主な機能
             </h2>
@@ -182,7 +182,7 @@ export default function Component() {
           id="benefits"
           className="py-16 bg-gradient-to-r from-indigo-100 to-blue-100"
         >
-          <div className="max-w-[1400px] mx-auto px-4">
+          <div className="max-w-[1400px] mx-auto px-6">
             <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
               エンゲージメントMEOのメリット
             </h2>
@@ -213,7 +213,7 @@ export default function Component() {
 
         {/* 特徴セクション */}
         <section id="unique-features" className="py-16 bg-white">
-          <div className="max-w-[1400px] mx-auto px-4">
+          <div className="max-w-[1400px] mx-auto px-6">
             <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
               エンゲージメントMEOの特徴
             </h2>
@@ -256,7 +256,7 @@ export default function Component() {
           id="how-it-works"
           className="py-16 bg-gradient-to-r from-indigo-100 to-blue-100"
         >
-          <div className="max-w-[1400px] mx-auto px-4">
+          <div className="max-w-[1400px] mx-auto px-6">
             <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
               エンゲージメントMEOの仕組み
             </h2>
@@ -299,7 +299,7 @@ export default function Component() {
 
         {/* 事例セクション */}
         <section id="case-studies" className="py-16 bg-white">
-          <div className="max-w-[1400px] mx-auto px-4">
+          <div className="max-w-[1400px] mx-auto px-6">
             <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
               成功事例
             </h2>
@@ -330,7 +330,7 @@ export default function Component() {
 
         {/* デモセクション */}
         <section id="demo" className="py-16 bg-indigo-50">
-          <div className="max-w-[1400px] mx-auto px-4 text-center">
+          <div className="max-w-[1400px] mx-auto px-6 text-center">
             <h2 className="text-3xl font-bold mb-8 text-gray-800">
               無料デモを体験
             </h2>
@@ -354,7 +354,7 @@ export default function Component() {
 
         {/* お問い合わせセクション */}
         <section id="contact" className="py-16 bg-white">
-          <div className="max-w-[1400px] mx-auto px-4 text-center">
+          <div className="max-w-[1400px] mx-auto px-6 text-center">
             <h2 className="text-3xl font-bold mb-8 text-gray-800">
               お問い合わせ
             </h2>
@@ -379,7 +379,7 @@ export default function Component() {
       </main>
 
       <footer className="bg-gray-800 text-white py-12 text-xs">
-        <div className="max-w-[1400px] mx-auto px-4">
+        <div className="max-w-[1400px] mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <h3 className="text-2xl font-bold mb-4 flex items-center">
