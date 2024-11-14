@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -21,7 +21,6 @@ import {
   ChevronRight,
   CheckCircle2,
 } from "lucide-react";
-import Head from "next/head";
 
 function useSmooth() {
   useEffect(() => {
@@ -42,13 +41,16 @@ function useSmooth() {
 }
 
 export default function Component() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   useSmooth();
 
   return (
     <>
-      <Head>
-        <title>エンゲージメントMEO - 新たな顧客との絆</title>
-      </Head>
       <div className="min-h-screen bg-gradient-to-b from-indigo-50 via-white to-indigo-50 text-sm">
         <header className="bg-white shadow-md sticky top-0 z-10">
           <div className="max-w-[1400px] mx-auto px-6 py-4 flex justify-between items-center">
@@ -58,8 +60,24 @@ export default function Component() {
                 エンゲージメントMEO
               </h1>
             </div>
-            <nav>
-              <ul className="flex space-x-8">
+            <button className="md:hidden text-indigo-600" onClick={toggleMenu}>
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                ></path>
+              </svg>
+            </button>
+            <nav className={`md:flex ${isMenuOpen ? "block" : "hidden"}`}>
+              <ul className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
                 <li>
                   <a
                     href="#features"
@@ -151,7 +169,7 @@ export default function Component() {
                 <FeatureCard
                   icon={<Star className="w-12 h-12 text-yellow-500" />}
                   title="AIレビュー最適化"
-                  description="AIがアンケート結果を解析し、最適なレビューを自動生成します。キーワードを自然に組み込み、ビジネスの強みを際立たせる文章で、Googleマップ上での評価向上に大きく貢献します。"
+                  description="AIがアンケート結果を解析し、最適なレビューを自動生成します。キーワ��ドを自然に組み込み、ビジネスの強みを際立たせる文章で、Googleマップ上での評価向上に大きく貢献します。"
                 />
                 <FeatureCard
                   icon={<BarChart className="w-12 h-12 text-blue-500" />}
@@ -166,7 +184,7 @@ export default function Component() {
                 <FeatureCard
                   icon={<ShieldCheck className="w-12 h-12 text-indigo-500" />}
                   title="データセキュリティ"
-                  description="高度な暗号化技術と多層防御システムで、顧客情報とビジネスデータを強固に保護。GDPRに準拠したデータ管理で、プライバシーを最優先に考えます。"
+                  description="高度な暗号化技術と多層防御システムで、顧客情報と��ジネスデータを強固に保護。GDPRに準拠したデータ管理で、プライバシーを最優先に考えます。"
                 />
                 <FeatureCard
                   icon={<Globe className="w-12 h-12 text-purple-500" />}
@@ -270,7 +288,7 @@ export default function Component() {
                   <TimelineItem
                     number="1"
                     title="顧客アンケートの実施"
-                    description="カスタマイズ可能なアンケートで、顧客から詳細なフィードバックを収集。QRコードやメールなど複数の回答方法を提供し、回答率を最大化します。"
+                    description="カスタマイズ可能なアンケートで、顧客から詳細��フィードバックを収集。QRコードやメールなど複数の回答方法を提供し、回答率を最大化します。"
                     icon={<MessageCircle className="w-6 h-6 text-white" />}
                   />
                   <TimelineItem
@@ -282,7 +300,7 @@ export default function Component() {
                   <TimelineItem
                     number="3"
                     title="クーポン発行"
-                    description="顧客の満足度に応じて、パーソナライズされたクーポンを自動発行。リピート率向上と新規顧客獲得の両方に効果的なインセンティブを提供します。"
+                    description="顧客の満足度に応じて、パーソナライズされたクーポンを自動発行。リピート率向上と新規客獲得の両方に効果的なインセンティブを提供します。"
                     icon={<Gift className="w-6 h-6 text-white" />}
                   />
                   <TimelineItem
@@ -294,7 +312,7 @@ export default function Component() {
                   <TimelineItem
                     number="5"
                     title="継続的な分析と最適化"
-                    description="パフォーマンスを常時監視し、AIが戦略を継続的に最適化。競合分析、キーワードトレンド、顧客行動の変化を考慮し、最新のMEO戦略を提案します。"
+                    description="パフォーマンスを常時監視し、AIが戦略を継続的に最適化。競合分析、キーワーレンド、客動の変化を考慮し、最新のMEO戦略を提案します。"
                     icon={<BarChart className="w-6 h-6 text-white" />}
                   />
                 </ol>
@@ -311,7 +329,7 @@ export default function Component() {
               <div className="grid md:grid-cols-2 gap-8">
                 <CaseStudyCard
                   title="地域密着型レストラン"
-                  description="エンゲージメントMEO導入から3ヶ月で、Googleマップでの表示回数が200%増加。来店客数が30%アップし、売上が大幅に改善しました。"
+                  description="エンゲージメントMEO導入から3ヶ月で、Googleマップでの表示回数が200%増加来店客数が30%アップし、売上が大幅に改善しました。"
                   results={[
                     "Googleマップでの表示回数: 200%増",
                     "来店客数: 30%増",
@@ -506,7 +524,7 @@ export default function Component() {
                     </svg>
                   </a>
                 </div>
-              </div>
+              </div>{" "}
             </div>
             <div className="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
               <p>
