@@ -7,6 +7,7 @@ export interface Question {
 export interface ClientConfig {
   name: string;
   questions: readonly Question[];
+  logoUrl: string;
 }
 
 const SATISFACTION_OPTIONS = [
@@ -67,6 +68,7 @@ const clientConfigs = {
         options: RECOMMENDATION_OPTIONS,
       },
     ],
+    logoUrl: "https://example.com/logo-01.png",
   },
   "client-02": {
     name: "ビューティーサロン Bloom",
@@ -103,6 +105,7 @@ const clientConfigs = {
         options: SATISFACTION_OPTIONS,
       },
     ],
+    logoUrl: "https://example.com/logo-02.png",
   },
   "client-03": {
     name: "ファッションストア Chic",
@@ -145,6 +148,7 @@ const clientConfigs = {
         ],
       },
     ],
+    logoUrl: "https://example.com/logo-03.png",
   },
 } as const;
 
