@@ -1,0 +1,90 @@
+{
+  "name": "ファッションストア Chic",
+  "questions": [
+    {
+      "id": "product-variety",
+      "question": "商品の品揃えはいかがでしたか？",
+      "options": ["非常に良い", "良い", "普通", "やや悪い", "悪い"]
+    },
+    {
+      "id": "staff-knowledge",
+      "question": "スタッフの商品知識は十分でしたか？",
+      "options": ["非常に十分", "十分", "普通", "やや不十分", "不十分"]
+    },
+    {
+      "id": "store-layout",
+      "question": "店舗のレイアウトは買い物しやすかったですか？",
+      "options": [
+        "とても買い物しやすい",
+        "買い物しやすい",
+        "普通",
+        "やや買い物しにくい",
+        "買い物しにくい"
+      ]
+    },
+    {
+      "id": "price-range",
+      "question": "価格帯は適切だと感じましたか？",
+      "options": ["非常に適切", "適切", "普通", "やや高い", "高すぎる"]
+    },
+    {
+      "id": "return-intention",
+      "question": "今��も当店を利用したいと思いますか？",
+      "options": [
+        "ぜひ利用したい",
+        "利用したい",
+        "どちらでもない",
+        "あまり利用したくない",
+        "利用したくない"
+      ]
+    }
+  ],
+  "logoUrl": "/images/logo/logo-c.png",
+  "logoWidth": 220,
+  "logoHeight": 110,
+  "logoClassName": "transform hover:scale-110 transition-transform duration-300",
+  "couponImage": {
+    "url": "/images/coupon/coupon-c.png",
+    "alt": "クーポン画像",
+    "width": 450,
+    "height": 450
+  },
+  "socialUrls": {
+    "instagram": {
+      "url": "https://www.instagram.com/client03/",
+      "show": true
+    },
+    "line": {
+      "url": "https://line.me/R/ti/p/@client03",
+      "show": true
+    },
+    "x": {
+      "url": "https://twitter.com/client03",
+      "show": false
+    }
+  },
+  "reviewUrls": {
+    "google": {
+      "url": "https://g.page/r/CLIENT03_GOOGLE_REVIEW_ID/review",
+      "show": true
+    },
+    "tabelog": {
+      "url": "https://tabelog.com/CLIENT03_RESTAURANT_ID/review/",
+      "show": true
+    },
+    "gurunavi": {
+      "url": "https://www.gnavi.co.jp/CLIENT03_RESTAURANT_ID/review/",
+      "show": false
+    },
+    "hotpepper": {
+      "url": "https://beauty.hotpepper.jp/CSP/bt/reserve/review/BCSTOP/CLIENT03_SALON_ID/",
+      "show": true
+    }
+  },
+  "customReviewUrls": [
+    {
+      "url": "https://custom-review-site.com/client03",
+      "label": "カスタムレビューサイト"
+    }
+  ]
+}
