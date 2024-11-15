@@ -8,6 +8,9 @@ export interface ClientConfig {
   name: string;
   questions: readonly Question[];
   logoUrl: string;
+  logoWidth: number;
+  logoHeight: number;
+  logoClassName: string;
 }
 
 const SATISFACTION_OPTIONS = [
@@ -17,6 +20,7 @@ const SATISFACTION_OPTIONS = [
   "やや不満",
   "不満",
 ] as const;
+
 const QUALITY_OPTIONS = [
   "非常に良い",
   "良い",
@@ -24,6 +28,7 @@ const QUALITY_OPTIONS = [
   "やや悪い",
   "悪い",
 ] as const;
+
 const RECOMMENDATION_OPTIONS = [
   "強く勧めたい",
   "勧めたい",
@@ -68,7 +73,11 @@ const clientConfigs = {
         options: RECOMMENDATION_OPTIONS,
       },
     ],
-    logoUrl: "https://example.com/logo-01.png",
+    logoUrl: "/images/logo-a.png",
+    logoWidth: 200,
+    logoHeight: 100,
+    logoClassName:
+      "transform hover:scale-105 transition-transform duration-300",
   },
   "client-02": {
     name: "ビューティーサロン Bloom",
@@ -105,7 +114,10 @@ const clientConfigs = {
         options: SATISFACTION_OPTIONS,
       },
     ],
-    logoUrl: "https://example.com/logo-02.png",
+    logoUrl: "/images/logo-b.png",
+    logoWidth: 180,
+    logoHeight: 90,
+    logoClassName: "transform hover:rotate-6 transition-transform duration-300",
   },
   "client-03": {
     name: "ファッションストア Chic",
@@ -148,7 +160,76 @@ const clientConfigs = {
         ],
       },
     ],
-    logoUrl: "https://example.com/logo-03.png",
+    logoUrl: "/images/logo-c.png",
+    logoWidth: 220,
+    logoHeight: 110,
+    logoClassName:
+      "transform hover:scale-110 transition-transform duration-300",
+  },
+  alegria: {
+    name: "メンズエステ アレグリア",
+    questions: [
+      {
+        id: "massage-point",
+        question: "特に効果を感じた施術箇所はどちらでしたか？",
+        options: [
+          "肩こりがスッキリ",
+          "腰の張りが改善",
+          "足のむくみが解消",
+          "頭痛が軽減",
+          "首のコリがとれた",
+        ],
+      },
+      {
+        id: "facility-point",
+        question: "店舗の設備で特によかった点は？",
+        options: [
+          "シャワールームが清潔",
+          "アメニティが充実",
+          "空調が快適",
+          "ベッドが広くて寝心地がいい",
+          "更衣室が使いやすい",
+        ],
+      },
+      {
+        id: "location-merit",
+        question: "ルームへのアクセスで便利だと感じた点は？",
+        options: [
+          "駅から徒歩5分以内",
+          "見つけやすい場所",
+          "人目を気にせず入店できる",
+          "コインパーキングが近い",
+          "ビジネス街で立ち寄りやすい",
+        ],
+      },
+      {
+        id: "therapist-point",
+        question: "セラピストのどのような点が良かったですか？",
+        options: [
+          "丁寧な施術",
+          "話しやすい雰囲気",
+          "施術の強さの調整が上手い",
+          "清潔感がある",
+          "マナーが良い",
+        ],
+      },
+      {
+        id: "time-value",
+        question: "コースの時間についてどう感じましたか？",
+        options: [
+          "ちょうど良い時間でリフレッシュできた",
+          "施術時間が長めで満足",
+          "休憩時間も適度にあって良い",
+          "急いでいても利用できる時間",
+          "余裕を持って利用できる",
+        ],
+      },
+    ],
+    logoUrl: "/images/logo-alegria.png",
+    logoWidth: 220,
+    logoHeight: 110,
+    logoClassName:
+      "transform hover:scale-110 transition-transform duration-300",
   },
 } as const;
 

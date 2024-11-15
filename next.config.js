@@ -1,11 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  experimental: {
-    // appDir: true, // appDirを削除しました
-  },
   images: {
-    domains: ["example.com", "meo-sod.vercel.app"],
+    // 外部ドメインから画像を取得する場合のみ設定が必要
+    // domains: ['example.com'],
   },
 };
 
