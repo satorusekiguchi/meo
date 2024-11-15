@@ -1,45 +1,40 @@
-import Link from "next/link";
 import Image from "next/image";
-import { getClientConfig, ClientId } from "@/config/clientConfig";
+import Link from "next/link";
+import path from "path";
+import fs from "fs";
+import { ClientConfig } from "./layout";
 
 export default function ClientPage({ params }: { params: { client: string } }) {
-  // デバッグ用ログ
-  console.log("クライアントページパラメータ:", params);
+  const { client } = params;
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "config",
+    "clients",
+    `${client}.json`
+  );
+  let clientConfig: ClientConfig | null = null;
 
-  // params.clientをClientId型にキャスト
-  const clientId = params.client as ClientId;
-  const clientConfig = getClientConfig(clientId);
+  if (fs.existsSync(filePath)) {
+    const fileContents = fs.readFileSync(filePath, "utf8");
+    clientConfig = JSON.parse(fileContents);
+  }
 
   if (!clientConfig) {
     return (
-      <div
-        className="min-h-screen flex items-center justify-center bg-gray-100"
-        role="alert"
-      >
-        <div className="text-center p-6 bg-white shadow-lg rounded-lg">
-          <h1 className="text-3xl font-extrabold text-red-600 mb-4">
-            エラーが発生しました
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center" role="alert">
+          <h1 className="text-3xl font-bold mb-4">
+            クライアントが見つかりません
           </h1>
-          <p className="text-lg text-gray-700">
-            クライアント設定が見つかりません:{" "}
-            <span className="font-semibold">{params.client}</span>
-          </p>
-          <p className="mt-4 text-sm text-gray-500">
-            デバッグ情報: Client ID = {params.client || "undefined"}
-          </p>
-          <p className="mt-2 text-sm text-gray-500">
-            Client ID Type: {typeof params.client}
-          </p>
-          <p className="mt-2 text-sm text-gray-500">
-            現在の時刻: {new Date().toLocaleString()}
-          </p>
-          <p className="mt-2 text-sm text-gray-500">
-            Params: {JSON.stringify(params)}
-          </p>
+          <p className="text-xl">指定されたクライアントIDは無効です。</p>
         </div>
       </div>
     );
   }
+
+  const logoPath = `/images/logo/logo-${client}.png`;
+  const couponPath = `/images/coupon/coupon-${client}.png`;
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-indigo-50 to-purple-100 py-12">
@@ -48,11 +43,11 @@ export default function ClientPage({ params }: { params: { client: string } }) {
           <div className="p-10">
             <div className="flex justify-center mb-8">
               <Image
-                src={clientConfig.logoUrl}
+                src={logoPath}
                 alt={`${clientConfig.name}ロゴ`}
-                width={clientConfig.logoWidth}
-                height={clientConfig.logoHeight}
-                className={clientConfig.logoClassName}
+                width={200}
+                height={100}
+                className="transform hover:scale-110 transition-transform duration-300"
               />
             </div>
             <h2 className="text-3xl font-extrabold text-center text-indigo-600 mb-4">
@@ -63,7 +58,7 @@ export default function ClientPage({ params }: { params: { client: string } }) {
             </p>
             <div className="text-center">
               <Link
-                href={`/${params.client}/survey`}
+                href={`/${client}/survey`}
                 className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-full shadow-md transition-colors duration-300 ease-in-out inline-block"
               >
                 アンケートに答えてクーポンをGET

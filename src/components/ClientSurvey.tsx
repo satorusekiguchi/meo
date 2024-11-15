@@ -4,7 +4,32 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Survey from "@/components/Survey";
 import SurveyResult from "@/components/SurveyResult";
-import { getClientConfig, ClientConfig, ClientId } from "@/config/clientConfig";
+import Image from "next/image";
+import Link from "next/link";
+
+interface URLConfig {
+  url: string;
+  visible: boolean;
+}
+
+interface ClientConfig {
+  name: string;
+  questions: {
+    id: string;
+    question: string;
+    options: readonly string[];
+  }[];
+  reviewUrls: {
+    [key: string]: URLConfig;
+  };
+  socialUrls: {
+    [key: string]: URLConfig;
+  };
+  logoUrl: string;
+  logoWidth: number;
+  logoHeight: number;
+  logoClassName: string;
+}
 
 export default function ClientSurvey() {
   const params = useParams();
@@ -14,7 +39,7 @@ export default function ClientSurvey() {
   const [generatedReview, setGeneratedReview] = useState("");
 
   useEffect(() => {
-    const fetchClientConfig = async () => {
+    const fetchClientConfigData = async () => {
       const clientId = Array.isArray(params.client)
         ? params.client[0]
         : params.client;
@@ -26,12 +51,15 @@ export default function ClientSurvey() {
       }
 
       try {
-        const config = getClientConfig(clientId as ClientId);
-        if (config) {
-          setClientConfig(config);
-        } else {
-          throw new Error("クライアント設定が見つかりません。");
+        const response = await fetch(`/api/config/${clientId}`);
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(
+            errorData.error || "クライアント設定の取得に失敗しました。"
+          );
         }
+        const config: ClientConfig = await response.json();
+        setClientConfig(config);
       } catch (err) {
         setError(
           err instanceof Error ? err.message : "不明なエラーが発生しました。"
@@ -39,7 +67,7 @@ export default function ClientSurvey() {
       }
     };
 
-    fetchClientConfig();
+    fetchClientConfigData();
   }, [params]);
 
   const handleSurveyComplete = (review: string) => {
@@ -69,7 +97,6 @@ export default function ClientSurvey() {
       >
         <div className="text-center" aria-live="polite">
           <h1 className="text-3xl font-bold mb-4">読み込み中...</h1>
-          <p className="text-xl">クライアント設定を取得しています</p>
         </div>
       </div>
     );
@@ -87,7 +114,13 @@ export default function ClientSurvey() {
             onComplete={handleSurveyComplete}
           />
         ) : (
-          <SurveyResult generatedReview={generatedReview} />
+          <SurveyResult
+            generatedReview={generatedReview}
+            clientConfig={clientConfig}
+            clientId={
+              Array.isArray(params.client) ? params.client[0] : params.client
+            }
+          />
         )}
       </div>
       <footer className="text-center py-4">

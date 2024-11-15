@@ -1,12 +1,52 @@
 import { Metadata } from "next";
-import { getClientConfig, ClientId } from "@/config/clientConfig";
+import path from "path";
+import fs from "fs";
+
+export interface URLConfig {
+  url: string;
+  visible: boolean;
+}
+
+export interface ClientConfig {
+  name: string;
+  questions: {
+    id: string;
+    question: string;
+    options: readonly string[];
+  }[];
+  reviewUrls: {
+    [key: string]: URLConfig;
+  };
+  socialUrls: {
+    [key: string]: URLConfig;
+  };
+  logoUrl: string;
+  logoWidth: number;
+  logoHeight: number;
+  logoClassName: string;
+}
 
 export async function generateMetadata({
   params,
 }: {
   params: { client: string };
 }): Promise<Metadata> {
-  const clientConfig = getClientConfig(params.client as ClientId);
+  const { client } = params;
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "config",
+    "clients",
+    `${client}.json`
+  );
+
+  let clientConfig: ClientConfig | null = null;
+
+  if (fs.existsSync(filePath)) {
+    const fileContents = fs.readFileSync(filePath, "utf8");
+    clientConfig = JSON.parse(fileContents);
+  }
+
   return {
     title: clientConfig
       ? `${clientConfig.name} | アンケート`

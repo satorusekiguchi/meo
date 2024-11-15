@@ -1,0 +1,66 @@
+{
+  "name": "ビューティーサロン Bloom",
+  "questions": [
+    {
+      "id": "stylist-skill",
+      "question": "スタイリストの技術力に満足しましたか？",
+      "options": ["非常に満足", "満足", "どちらでもない", "やや不満", "不満"]
+    },
+    {
+      "id": "consultation",
+      "question": "カウンセリングは丁寧でしたか？",
+      "options": ["とても丁寧", "丁寧", "普通", "やや不十分", "不十分"]
+    },
+    {
+      "id": "salon-cleanliness",
+      "question": "サロンの清潔さはいかがでしたか？",
+      "options": ["非常に清潔", "清潔", "普通", "やや不潔", "不潔"]
+    },
+    {
+      "id": "waiting-time",
+      "question": "待ち時間はいかがでしたか？",
+      "options": [
+        "ほとんどなかった",
+        "短かった",
+        "普通",
+        "やや長かった",
+        "長すぎた"
+      ]
+    },
+    {
+      "id": "overall-experience",
+      "question": "全体的な満足度を教えてください。",
+      "options": ["非常に満足", "満足", "どちらでもない", "やや不満", "不満"]
+    }
+  ],
+  "reviewUrls": {
+    "google": {
+      "url": "https://g.page/clientB_review/review",
+      "visible": true
+    },
+    "tabelog": {
+      "url": "https://tabelog.com/clientB_review/review/",
+      "visible": true
+    },
+    "gurunavi": {
+      "url": "https://www.gnavi.co.jp/clientB_review/review/",
+      "visible": true
+    },
+    "hotpepper": {
+      "url": "https://beauty.hotpepper.jp/clientB_review/review/BCSTOP/SALON_ID/",
+      "visible": false
+    }
+  },
+  "socialUrls": {
+    "instagram": {
+      "url": "https://www.instagram.com/clientB_handle/",
+      "visible": true
+    },
+    "line": { "url": "https://line.me/R/ti/p/@clientB_ID", "visible": true },
+    "x": { "url": "https://twitter.com/clientB_handle", "visible": false }
+  },
+  "logoUrl": "/images/logo/logo-b.png",
+  "logoWidth": 180,
+  "logoHeight": 90,
+  "logoClassName": "transform hover:rotate-6 transition-transform duration-300"
+}

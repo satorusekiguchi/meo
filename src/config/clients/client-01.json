@@ -1,0 +1,68 @@
+{
+  "name": "和食レストラン 匠",
+  "questions": [
+    {
+      "id": "food-quality",
+      "question": "料理の味と品質はいかがでしたか？",
+      "options": ["非常に満足", "満足", "どちらでもない", "やや不満", "不満"]
+    },
+    {
+      "id": "service",
+      "question": "スタッフの接客サービスについてどう感じましたか？",
+      "options": ["非常に良い", "良い", "普通", "やや悪い", "悪い"]
+    },
+    {
+      "id": "atmosphere",
+      "question": "お店の雰囲気や内装は好みでしたか？",
+      "options": [
+        "とても好み",
+        "好み",
+        "普通",
+        "あまり好みでない",
+        "好みでない"
+      ]
+    },
+    {
+      "id": "value",
+      "question": "価格に対する満足度はいかがですか？",
+      "options": ["非常に満足", "満足", "どちらでもない", "やや不満", "不満"]
+    },
+    {
+      "id": "recommendation",
+      "question": "当店を知人や家族に勧めたいと思いますか？",
+      "options": [
+        "強く勧めたい",
+        "勧めたい",
+        "どちらでもない",
+        "あまり勧めたくない",
+        "勧めたくない"
+      ]
+    }
+  ],
+  "reviewUrls": {
+    "google": {
+      "url": "https://g.page/clientA_review/review",
+      "visible": true
+    },
+    "tabelog": {
+      "url": "https://tabelog.com/clientA_review/review/",
+      "visible": true
+    },
+    "gurunavi": {
+      "url": "https://www.gnavi.co.jp/clientA_review/review/",
+      "visible": false
+    },
+    "hotpepper": {
+      "url": "https://beauty.hotpepper.jp/CSP/bt/reserve/review/BCSTOP/SALON_ID/",
+      "visible": true
+    }
+  },
+  "socialUrls": {
+    "instagram": {
+      "url": "https://www.instagram.com/clientA_handle/",
+      "visible": true
+    },
+    "line": { "url": "https://line.me/R/ti/p/@clientA_ID", "visible": false },
+    "x": { "url": "https://twitter.com/clientA_handle", "visible": true }
+  }
+}
