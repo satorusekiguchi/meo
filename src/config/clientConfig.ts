@@ -45,3 +45,10 @@ export const getClientConfig = (clientId: string): ClientConfig | null => {
     return null;
   }
 };
+
+export interface Question {
+  id: string;
+  question: string;
+  options: readonly string[];
+  // 他のプロパティがあればここに追加
+}
