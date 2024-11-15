@@ -7,11 +7,11 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Check } from "lucide-react";
 import { Loader2 } from "lucide-react";
-import { Question } from "@/config/clientConfig";
+import { Question } from "@/config/types";
 
 interface SurveyProps {
   questions: readonly Question[];
-  onComplete: (review: string) => void;
+  onComplete: () => void;
 }
 
 export default function Survey({ questions, onComplete }: SurveyProps) {
@@ -56,7 +56,7 @@ export default function Survey({ questions, onComplete }: SurveyProps) {
       const data = await response.json();
       console.log("レスポンスデータ:", data);
       if (data.success) {
-        onComplete(data.review);
+        onComplete();
       } else {
         throw new Error(data.error || "レビューの生成に失敗しました");
       }
