@@ -23,6 +23,8 @@ export interface ClientConfig {
   logoWidth: number;
   logoHeight: number;
   logoClassName: string;
+  logo: string | null;
+  coupon: string | null;
 }
 
 const clientsDirectory = path.join(process.cwd(), "src", "config", "clients");

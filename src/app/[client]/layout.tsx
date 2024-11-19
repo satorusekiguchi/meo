@@ -25,6 +25,7 @@ export interface ClientConfig {
   logoWidth: number;
   logoHeight: number;
   logoClassName: string;
+  logo: string;
 }
 
 export async function generateMetadata({
