@@ -1,7 +1,30 @@
 import { Metadata } from "next";
 import path from "path";
 import fs from "fs";
-import { ClientConfig } from "@/config/clientConfig";
+
+export interface URLConfig {
+  url: string;
+  visible: boolean;
+}
+
+export interface ClientConfig {
+  name: string;
+  questions: {
+    id: string;
+    question: string;
+    options: readonly string[];
+  }[];
+  reviewUrls: {
+    [key: string]: URLConfig;
+  };
+  socialUrls: {
+    [key: string]: URLConfig;
+  };
+  logoUrl: string;
+  logoWidth: number;
+  logoHeight: number;
+  logoClassName: string;
+}
 
 export async function generateMetadata({
   params,
