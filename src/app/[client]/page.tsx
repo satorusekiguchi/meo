@@ -40,7 +40,7 @@ export default function ClientPage({ params }: { params: { client: string } }) {
           <div className="p-10">
             <div className="flex justify-center mb-8">
               <Image
-                src={clientConfig.logo}
+                src={clientConfig.logoUrl}
                 alt={`${clientConfig.name}ロゴ`}
                 width={200}
                 height={100}
