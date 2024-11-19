@@ -571,7 +571,7 @@ export default function AdminDashboard() {
                 {data.logo && (
                   <div className="mt-4 relative">
                     <img
-                      src={data.logo.previewUrl}
+                      src={data.logo.previewUrl || "/images/common/logo.png"}
                       alt="ロゴ"
                       className="max-w-full h-auto rounded-md shadow-md"
                     />
