@@ -638,7 +638,9 @@ export default function AdminDashboard() {
                 {data.coupon && (
                   <div className="mt-4 relative">
                     <img
-                      src={data.coupon.previewUrl}
+                      src={
+                        data.coupon.previewUrl || "/images/common/coupon.png"
+                      }
                       alt="クーポン"
                       className="max-w-full h-auto rounded-md shadow-md"
                     />
