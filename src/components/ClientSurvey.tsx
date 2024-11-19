@@ -29,6 +29,7 @@ interface ClientConfig {
   logoWidth: number;
   logoHeight: number;
   logoClassName: string;
+  coupon: string;
 }
 
 export default function ClientSurvey() {

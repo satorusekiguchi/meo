@@ -5,6 +5,7 @@ import fs from "fs";
 export interface URLConfig {
   url: string;
   visible: boolean;
+  buttonText?: string;
 }
 
 export interface ClientConfig {
