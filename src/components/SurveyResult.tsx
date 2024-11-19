@@ -12,6 +12,7 @@ import Image from "next/image";
 interface URLConfig {
   url: string;
   visible: boolean;
+  buttonText?: string;
 }
 
 interface ClientConfig {
@@ -27,6 +28,7 @@ interface ClientConfig {
   socialUrls: {
     [key: string]: URLConfig;
   };
+  coupon: string;
 }
 
 interface SurveyResultProps {

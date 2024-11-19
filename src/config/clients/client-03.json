@@ -42,19 +42,23 @@
   "reviewUrls": {
     "google": {
       "url": "https://g.page/clientC_review/review",
-      "visible": true
+      "visible": true,
+      "buttonText": "Google レビューを書く"
     },
     "tabelog": {
       "url": "https://tabelog.com/clientC_review/review/",
-      "visible": true
+      "visible": true,
+      "buttonText": "食べログでレビューを書く"
     },
     "gurunavi": {
       "url": "https://www.gnavi.co.jp/clientC_review/review/",
-      "visible": false
+      "visible": false,
+      "buttonText": "ぐるなびでレビューを書く"
     },
     "hotpepper": {
       "url": "https://beauty.hotpepper.jp/clientC_review/review/BCSTOP/SALON_ID/",
-      "visible": false
+      "visible": false,
+      "buttonText": "ホットペッパーでレビューを書く"
     }
   },
   "socialUrls": {

@@ -42,19 +42,23 @@
   "reviewUrls": {
     "google": {
       "url": "https://g.page/clientA_review/review",
-      "visible": true
+      "visible": true,
+      "buttonText": "Googleに投稿"
     },
     "tabelog": {
       "url": "https://tabelog.com/clientA_review/review/",
-      "visible": true
+      "visible": true,
+      "buttonText": "食べログに投稿"
     },
     "gurunavi": {
       "url": "https://www.gnavi.co.jp/clientA_review/review/",
-      "visible": false
+      "visible": false,
+      "buttonText": "ぐるなびに投稿"
     },
     "hotpepper": {
       "url": "https://beauty.hotpepper.jp/CSP/bt/reserve/review/BCSTOP/SALON_ID/",
-      "visible": true
+      "visible": true,
+      "buttonText": "ホットペッパーに投稿"
     }
   },
   "socialUrls": {
@@ -64,5 +68,7 @@
     },
     "line": { "url": "https://line.me/R/ti/p/@clientA_ID", "visible": false },
     "x": { "url": "https://twitter.com/clientA_handle", "visible": true }
-  }
+  },
+  "logo": "public/uploads/logo-client-01.png",
+  "coupon": "public/uploads/coupon-client-01.png"
 }

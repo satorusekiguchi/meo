@@ -60,27 +60,33 @@
   "reviewUrls": {
     "google": {
       "url": "https://g.page/clientAlegria_review/review",
-      "visible": true
+      "visible": true,
+      "buttonText": "Googleに投稿"
     },
     "tabelog": {
       "url": "https://tabelog.com/clientAlegria_review/review/",
-      "visible": true
+      "visible": true,
+      "buttonText": "食べログに投稿"
     },
     "gurunavi": {
       "url": "https://www.gnavi.co.jp/clientAlegria_review/review/",
-      "visible": false
+      "visible": false,
+      "buttonText": "ぐるなびに投稿"
     },
     "hotpepper": {
       "url": "https://beauty.hotpepper.jp/clientAlegria_review/review/BCSTOP/SALON_ID/",
-      "visible": true
+      "visible": true,
+      "buttonText": "ホットペッパーに投稿"
     },
     "custom1": {
       "url": "https://customurl1-clientAlegria.com/review",
-      "visible": true
+      "visible": true,
+      "buttonText": "レビューを投稿"
     },
     "custom2": {
       "url": "https://customurl2-clientAlegria.com/review",
-      "visible": false
+      "visible": false,
+      "buttonText": "レビューを投稿"
     }
   },
   "socialUrls": {
@@ -96,5 +102,7 @@
       "url": "https://twitter.com/clientAlegria_handle",
       "visible": false
     }
-  }
+  },
+  "logo": "public/uploads/logo-alegria.png",
+  "coupon": "public/uploads/coupon-alegria.png"
 }
