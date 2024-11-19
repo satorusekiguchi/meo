@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { writeFile } from "fs/promises";
 import path from "path";
+import fs from "fs";
+import { v4 as uuidv4 } from "uuid";
 
 export async function POST(request: Request) {
   try {
@@ -24,6 +26,15 @@ export async function POST(request: Request) {
     await writeFile(filePath, buffer);
 
     const publicPath = `/uploads/${filename}`;
+
+    const fileContent = await file.arrayBuffer();
+
+    const uniqueFileName = `logo_${uuidv4()}.png`;
+    const tempPath = `/tmp/${uniqueFileName}`;
+
+    // ファイルを一時ディレクトリに保存
+    const bufferContent = Buffer.from(fileContent);
+    fs.writeFileSync(tempPath, bufferContent);
 
     return NextResponse.json(
       { message: "画像が正常にアップロードされました", path: publicPath },
