@@ -151,10 +151,10 @@ export default function Survey({ questions, onComplete }: SurveyProps) {
                 className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 active:from-blue-700 active:to-purple-800 transition-all duration-200"
               >
                 {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    レビューをAIが生成中．．．
-                  </>
+                  <div className="flex items-center justify-center">
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin text-white" />
+                    <span className="text-white">レビューをAIが生成中...</span>
+                  </div>
                 ) : (
                   "送信してクーポンGET"
                 )}

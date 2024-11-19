@@ -36,6 +36,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Modal from "@/components/ui/modal";
+import { templates } from "@/data/templates";
 
 interface Question {
   id: string;
@@ -65,237 +67,6 @@ interface AdminData {
     serverPath: string | null;
   } | null;
 }
-
-const templates = {
-  ramen: [
-    {
-      id: "1",
-      question: "ラーメンのスープの味はいかがでしたか？",
-      options: [
-        "濃厚で深みがある",
-        "ちょうど良い塩加減",
-        "あっさりしていて飲みやすい",
-        "少し塩辛い",
-        "味が薄くて物足りない",
-      ],
-    },
-    {
-      id: "2",
-      question: "麺の食感はどうでしたか？",
-      options: [
-        "コシがあってもちもち",
-        "適度な歯ごたえがある",
-        "少し柔らかめ",
-        "硬すぎる",
-        "のびていて残念",
-      ],
-    },
-    {
-      id: "3",
-      question: "トッピングの量は十分でしたか？",
-      options: [
-        "具沢山で満足",
-        "ちょうど良い量",
-        "もう少し欲しかった",
-        "種類が少ない",
-        "量が少なすぎる",
-      ],
-    },
-    {
-      id: "4",
-      question: "店内の雰囲気はいかがでしたか？",
-      options: [
-        "活気があって良い",
-        "落ち着いた雰囲気",
-        "清潔で快適",
-        "少し狭く感じた",
-        "騒がしくて気になった",
-      ],
-    },
-    {
-      id: "5",
-      question: "接客サービスはどうでしたか？",
-      options: [
-        "とても丁寧で親切",
-        "テキパキとしていて良い",
-        "普通のサービス",
-        "もう少し気配りが欲しい",
-        "接客に不満がある",
-      ],
-    },
-  ],
-  cafe: [
-    {
-      id: "1",
-      question: "注文したコーヒーの味はいかがでしたか？",
-      options: [
-        "香り豊かで絶品",
-        "バランスが良く美味しい",
-        "普通の味",
-        "少し薄く感じた",
-        "好みではなかった",
-      ],
-    },
-    {
-      id: "2",
-      question: "提供された食事やデザートの質はどうでしたか？",
-      options: [
-        "見た目も味も最高",
-        "美味しくて満足",
-        "普通においしい",
-        "期待はずれだった",
-        "まずくて食べられない",
-      ],
-    },
-    {
-      id: "3",
-      question: "店内の雰囲気はいかがでしたか？",
-      options: [
-        "居心地が良く落ち着く",
-        "おしゃれで気に入った",
-        "普通のカフェの雰囲気",
-        "少し狭く感じた",
-        "居心地が悪かった",
-      ],
-    },
-    {
-      id: "4",
-      question: "Wi-Fiや電源などの設備は充実していましたか？",
-      options: [
-        "非常に充実している",
-        "必要十分な設備がある",
-        "基本的な設備はある",
-        "一部の設備が不足",
-        "設備が整っていない",
-      ],
-    },
-    {
-      id: "5",
-      question: "価格設定はどう感じましたか？",
-      options: [
-        "品質を考えるとリーズナブル",
-        "妥当な価格設定",
-        "少し高いが許容範囲",
-        "割高に感じた",
-        "価格が高すぎる",
-      ],
-    },
-  ],
-  izakaya: [
-    {
-      id: "1",
-      question: "注文した料理の味はいかがでしたか？",
-      options: [
-        "絶品で感動した",
-        "美味しくて満足",
-        "普通においしい",
-        "一部の料理が期待外れ",
-        "全体的に味が良くない",
-      ],
-    },
-    {
-      id: "2",
-      question: "お酒の種類は十分でしたか？",
-      options: [
-        "豊富な種類で大満足",
-        "好みの酒が見つかった",
-        "一般的な品揃え",
-        "もう少し種類が欲しい",
-        "品揃えが乏しい",
-      ],
-    },
-    {
-      id: "3",
-      question: "店内の雰囲気はどうでしたか？",
-      options: [
-        "活気があり楽しめた",
-        "落ち着いた良い雰囲気",
-        "普通の居酒屋の雰囲気",
-        "少し騒がしく感じた",
-        "居心地が悪かった",
-      ],
-    },
-    {
-      id: "4",
-      question: "接客サービスはいかがでしたか？",
-      options: [
-        "とても丁寧で気配りがある",
-        "テキパキとしていて良い",
-        "普通のサービス",
-        "対応に改善の余地あり",
-        "接客に不満がある",
-      ],
-    },
-    {
-      id: "5",
-      question: "コストパフォーマンスはどうでしたか？",
-      options: [
-        "価格以上の満足感",
-        "料理の質を考えると妥当",
-        "普通のコスパ",
-        "少し割高に感じた",
-        "価格が高すぎる",
-      ],
-    },
-  ],
-  massage: [
-    {
-      id: "1",
-      question: "マッサージの効果はいかがでしたか？",
-      options: [
-        "驚くほど体が軽くなった",
-        "リラックスできて満足",
-        "ある程度の効果を感じた",
-        "あまり効果を感じなかった",
-        "期待はずれだった",
-      ],
-    },
-    {
-      id: "2",
-      question: "施術者の技術はどうでしたか？",
-      options: [
-        "非常に高度で満足",
-        "丁寧で気持ち良かった",
-        "普通の技術レベル",
-        "もう少し改善が必要",
-        "技術に不満がある",
-      ],
-    },
-    {
-      id: "3",
-      question: "店内の清潔さや雰囲気はいかがでしたか？",
-      options: [
-        "非常に清潔で落ち着く",
-        "清潔感があり快適",
-        "普通の清潔さ",
-        "もう少し改善が必要",
-        "清潔さに不安がある",
-      ],
-    },
-    {
-      id: "4",
-      question: "予約や受付の対応はスムーズでしたか？",
-      options: [
-        "とてもスムーズで満足",
-        "特に問題なく対応",
-        "普通の対応",
-        "少し待たされた",
-        "対応に不満がある",
-      ],
-    },
-    {
-      id: "5",
-      question: "料金に対する満足度はいかがですか？",
-      options: [
-        "価格以上の価値があった",
-        "適切な価格設定",
-        "普通の価格帯",
-        "少し高く感じた",
-        "価格が高すぎる",
-      ],
-    },
-  ],
-};
 
 export default function AdminDashboard() {
   const { toast } = useToast();
@@ -348,6 +119,7 @@ export default function AdminDashboard() {
     coupon: null,
   });
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [jsonOutput, setJsonOutput] = useState<string>("");
   const [jsonFilename, setJsonFilename] = useState<string>("sod-inc");
   const [filenameError, setFilenameError] = useState<string>("");
@@ -497,7 +269,7 @@ export default function AdminDashboard() {
       if (hasEmptyQuestions) {
         toast({
           title: "エラー",
-          description: "すべての質問と回答を入力してください。",
+          description: "すべての質問と回答を入力してくださ。",
           variant: "destructive",
         });
         return;
@@ -558,7 +330,10 @@ export default function AdminDashboard() {
           title: "JSONが保存されました",
           description: `${jsonFilename}.json として src/config/clients/ に保存されました。`,
         });
+        setIsModalOpen(true);
       } else {
+        const errorText = await response.text();
+        console.error("Failed to save JSON:", errorText);
         throw new Error("Failed to save JSON");
       }
     } catch (error) {
@@ -581,31 +356,6 @@ export default function AdminDashboard() {
         "ファイル名には英数字、ハイフン、アンダースコアのみ使用できます。"
       );
     }
-  };
-
-  const downloadJson = () => {
-    const jsonData = {
-      name: data.name,
-      questions: data.questions,
-      reviewUrls: data.reviewUrls,
-      socialUrls: data.socialUrls,
-      logo: data.logo ? data.logo.serverPath : null,
-      coupon: data.coupon ? data.coupon.serverPath : null,
-    };
-    const jsonString = JSON.stringify(jsonData, null, 2);
-    const blob = new Blob([jsonString], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${jsonFilename}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    toast({
-      title: "JSONがダウンロードされました",
-      description: `${jsonFilename}.json として保存されました。`,
-    });
   };
 
   const handleTemplateChange = (value: string) => {
@@ -674,15 +424,41 @@ export default function AdminDashboard() {
               <Save className="w-4 h-4 mr-2" />
               JSONを保存
             </Button>
-            <Button
-              onClick={downloadJson}
-              className="btn bg-purple-500 hover:bg-purple-600 text-white transition-colors duration-200"
-            >
-              <Download className="w-4 h-4 mr-2" />
-              JSONをダウンロード
-            </Button>
           </div>
         </div>
+      )}
+
+      {isModalOpen && (
+        <Modal onClose={() => setIsModalOpen(false)}>
+          <div className="p-4">
+            <h2 className="text-lg font-semibold">設定が完了しました👩‍💻</h2>
+            <p className="mt-2">{data.name}の公開URLはこちらになります。</p>
+            <div className="bg-gray-100 rounded-md p-3 mt-2 text-center">
+              <a
+                href={`/${jsonFilename}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:text-blue-600 inline-flex items-center"
+              >
+                {window.location.origin}/{jsonFilename}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 ml-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </Modal>
       )}
 
       <main className="grid grid-cols-1 md:grid-cols-10 gap-8">

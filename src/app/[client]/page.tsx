@@ -33,9 +33,6 @@ export default function ClientPage({ params }: { params: { client: string } }) {
     );
   }
 
-  const logoPath = `/images/logo/logo-${client}.png`;
-  const couponPath = `/images/coupon/coupon-${client}.png`;
-
   return (
     <div className="min-h-screen bg-gradient-to-r from-indigo-50 to-purple-100 py-12">
       <div className="container mx-auto px-4 max-w-3xl">
@@ -43,11 +40,11 @@ export default function ClientPage({ params }: { params: { client: string } }) {
           <div className="p-10">
             <div className="flex justify-center mb-8">
               <Image
-                src={logoPath}
+                src={clientConfig.logo}
                 alt={`${clientConfig.name}ロゴ`}
                 width={200}
                 height={100}
-                className="transform hover:scale-110 transition-transform duration-300"
+                className="hover:scale-110 transition-transform duration-300"
               />
             </div>
             <h2 className="text-3xl font-extrabold text-center text-indigo-600 mb-4">

@@ -1,0 +1,104 @@
+{
+  "name": "SOD株式会社",
+  "questions": [
+    {
+      "id": "1",
+      "question": "ラーメンのスープの味はいかがでしたか？",
+      "options": [
+        "濃厚で深みがある",
+        "ちょうど良い塩加減",
+        "あっさりしていて飲みやすい",
+        "少し塩辛い",
+        "味が薄くて物足りない"
+      ]
+    },
+    {
+      "id": "2",
+      "question": "麺の食感はどうでしたか？",
+      "options": [
+        "コシがあってもちもち",
+        "適度な歯ごたえがある",
+        "少し柔らかめ",
+        "硬すぎる",
+        "のびていて残念"
+      ]
+    },
+    {
+      "id": "3",
+      "question": "トッピングの量は十分でしたか？",
+      "options": [
+        "具沢山で満足",
+        "ちょうど良い量",
+        "もう少し欲しかった",
+        "種類が少ない",
+        "量が少なすぎる"
+      ]
+    },
+    {
+      "id": "4",
+      "question": "店内の雰囲気はいかがでしたか？",
+      "options": [
+        "活気があって良い",
+        "落ち着いた雰囲気",
+        "清潔で快適",
+        "少し狭く感じた",
+        "騒がしくて気になった"
+      ]
+    },
+    {
+      "id": "5",
+      "question": "接客サービスはどうでしたか？",
+      "options": [
+        "とても丁寧で親切",
+        "テキパキとしていて良い",
+        "普通のサービス",
+        "もう少し気配りが欲しい",
+        "接客に不満がある"
+      ]
+    }
+  ],
+  "reviewUrls": {
+    "google": {
+      "url": "https://g.page/clientAlegria_review/review",
+      "visible": true
+    },
+    "tabelog": {
+      "url": "https://tabelog.com/clientAlegria_review/review/",
+      "visible": true
+    },
+    "gurunavi": {
+      "url": "https://www.gnavi.co.jp/clientAlegria_review/review/",
+      "visible": false
+    },
+    "hotpepper": {
+      "url": "https://beauty.hotpepper.jp/clientAlegria_review/review/BCSTOP/SALON_ID/",
+      "visible": true
+    },
+    "custom1": {
+      "url": "https://customurl1-clientAlegria.com/review",
+      "visible": true,
+      "buttonText": "custom1"
+    },
+    "custom2": {
+      "url": "https://customurl2-clientAlegria.com/review",
+      "visible": false,
+      "buttonText": "custom2"
+    }
+  },
+  "socialUrls": {
+    "instagram": {
+      "url": "https://www.instagram.com/clientAlegria_handle/",
+      "visible": true
+    },
+    "line": {
+      "url": "https://line.me/R/ti/p/@clientAlegria_ID",
+      "visible": true
+    },
+    "x": {
+      "url": "https://twitter.com/clientAlegria_handle",
+      "visible": false
+    }
+  },
+  "logo": null,
+  "coupon": null
+}

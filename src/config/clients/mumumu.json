@@ -1,0 +1,104 @@
+{
+  "name": "mumumu",
+  "questions": [
+    {
+      "id": "1",
+      "question": "マッサージの効果はいかがでしたか？",
+      "options": [
+        "驚くほど体が軽くなった",
+        "リラックスできて満足",
+        "ある程度の効果を感じた",
+        "あまり効果を感じなかった",
+        "期待はずれだった"
+      ]
+    },
+    {
+      "id": "2",
+      "question": "施術者の技術はどうでしたか？",
+      "options": [
+        "非常に高度で満足",
+        "丁寧で気持ち良かった",
+        "普通の技術レベル",
+        "もう少し改善が必要",
+        "技術に不満がある"
+      ]
+    },
+    {
+      "id": "3",
+      "question": "店内の清潔さや雰囲気はいかがでしたか？",
+      "options": [
+        "非常に清潔で落ち着く",
+        "清潔感があり快適",
+        "普通の清潔さ",
+        "もう少し改善が必要",
+        "清潔さに不安がある"
+      ]
+    },
+    {
+      "id": "4",
+      "question": "予約や受付の対応はスムーズでしたか？",
+      "options": [
+        "とてもスムーズで満足",
+        "特に問題なく対応",
+        "普通の対応",
+        "少し待たされた",
+        "対応に不満がある"
+      ]
+    },
+    {
+      "id": "5",
+      "question": "料金に対する満足度はいかがですか？",
+      "options": [
+        "価格以上の価値があった",
+        "適切な価格設定",
+        "普通の価格帯",
+        "少し高く感じた",
+        "価格が高すぎる"
+      ]
+    }
+  ],
+  "reviewUrls": {
+    "google": {
+      "url": "https://g.page/clientAlegria_review/review",
+      "visible": true
+    },
+    "tabelog": {
+      "url": "https://tabelog.com/clientAlegria_review/review/",
+      "visible": true
+    },
+    "gurunavi": {
+      "url": "https://www.gnavi.co.jp/clientAlegria_review/review/",
+      "visible": false
+    },
+    "hotpepper": {
+      "url": "https://beauty.hotpepper.jp/clientAlegria_review/review/BCSTOP/SALON_ID/",
+      "visible": true
+    },
+    "custom1": {
+      "url": "https://customurl1-clientAlegria.com/review",
+      "visible": true,
+      "buttonText": "custom1"
+    },
+    "custom2": {
+      "url": "https://customurl2-clientAlegria.com/review",
+      "visible": false,
+      "buttonText": "custom2"
+    }
+  },
+  "socialUrls": {
+    "instagram": {
+      "url": "https://www.instagram.com/clientAlegria_handle/",
+      "visible": true
+    },
+    "line": {
+      "url": "https://line.me/R/ti/p/@clientAlegria_ID",
+      "visible": true
+    },
+    "x": {
+      "url": "https://twitter.com/clientAlegria_handle",
+      "visible": false
+    }
+  },
+  "logo": "/uploads/logo_1732004507641.png",
+  "coupon": "/uploads/coupon_1732004512647.jpg"
+}

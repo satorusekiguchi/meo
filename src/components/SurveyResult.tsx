@@ -121,15 +121,16 @@ export default function SurveyResult({
                             className="w-full text-sm"
                           >
                             <ExternalLink className="mr-2 h-5 w-5" />
-                            {key === "google"
-                              ? "Googleに投稿"
-                              : key === "tabelog"
-                              ? "食べログに投稿"
-                              : key === "gurunavi"
-                              ? "ぐるなびに投稿"
-                              : key === "hotpepper"
-                              ? "ホットペッパーに投稿"
-                              : `${key}に投稿`}
+                            {value.buttonText ||
+                              (key === "google"
+                                ? "Googleに投稿"
+                                : key === "tabelog"
+                                ? "食べログに投稿"
+                                : key === "gurunavi"
+                                ? "ぐるなびに投稿"
+                                : key === "hotpepper"
+                                ? "ホットペッパーに投稿"
+                                : `${key}に投稿`)}
                           </Button>
                         );
                       }
@@ -140,7 +141,7 @@ export default function SurveyResult({
               </div>
               <div className="w-full mx-auto bg-gray-200 rounded-lg overflow-hidden shadow-md">
                 <Image
-                  src={couponPath}
+                  src={clientConfig.coupon}
                   alt={`${clientConfig.name}クーポン`}
                   layout="responsive"
                   width={300}
