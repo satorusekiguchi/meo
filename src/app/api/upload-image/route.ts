@@ -20,21 +20,13 @@ export async function POST(request: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    const filename = `${type}_${Date.now()}${path.extname(file.name)}`;
-    const filePath = path.join(process.cwd(), "public", "uploads", filename);
-
-    await writeFile(filePath, buffer);
-
-    const publicPath = `/uploads/${filename}`;
-
-    const fileContent = await file.arrayBuffer();
-
-    const uniqueFileName = `logo_${uuidv4()}.png`;
+    const uniqueFileName = `${type}_${uuidv4()}${path.extname(file.name)}`;
     const tempPath = `/tmp/${uniqueFileName}`;
 
     // ファイルを一時ディレクトリに保存
-    const bufferContent = Buffer.from(fileContent);
-    fs.writeFileSync(tempPath, bufferContent);
+    fs.writeFileSync(tempPath, buffer);
+
+    const publicPath = `/uploads/${uniqueFileName}`;
 
     return NextResponse.json(
       { message: "画像が正常にアップロードされました", path: publicPath },
